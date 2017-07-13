@@ -1,7 +1,8 @@
 #include "interactable.h"
 
 // Character Class Methods
-const int Character::getHealth() { return hp; }
+const int Character::getHP() { return hp; }
+const int Character::getDefHP() { return def_hp; }
 const int Character::getAtk() { return atk; }
 const int Character::getDef() { return def; }
 const int Character::getDefAtk() { return def_atk; }
@@ -14,9 +15,9 @@ void Character::setDef(int new_def) { def = new_def; }
 // Player Class Methods
 Player::Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
   int hp_regen, int gold_steal):
-   Character{hp, atk, def}, //must invoke superclass ctor
-   def_atk {atk}, def_def {def}, pot_multiplier{pot_multiplier}, max_hp{max_hp},
-   hp_regen{hp_regen}, gold_steal{gold_steal}{}
+  Character{hp, atk, def}, //must invoke superclass ctor
+  def_hp {hp} def_atk {atk}, def_def {def}, pot_multiplier{pot_multiplier},
+  max_hp{max_hp}, hp_regen{hp_regen}, gold_steal{gold_steal} {}
 
 void Player::resetStats() {
   setAtk(this->getDefAtk());
@@ -35,13 +36,16 @@ Enemy::Enemy(int hp, int atk, int def, int gold_drop, bool aggressive, bool alle
 RHPot::RHPot(const int heal): heal{heal}{}
 
 const void RHPot::checkEffect() {
-  if (checked == true) {
+  if (RH_checked == true) {
     cout << "This potion will heal you for " << heal << " points." << endl;
   }
   else cout << "Effect unknown." << endl;
 }
-
 void RHPot::takePotion() {
-  int max = heal + 
-}
+  const int max = player->getDefHP(); //how much the player started with
+  int new_hp = player->getHP() + heal;
+  // if player is vampire (unlim hp) or will not hit hp cap
+  if (max_hp == false || new_hp <= max) player->setHP(new_hp);
+  else player->setHP(max); // bring HP to maximum
 
+}
