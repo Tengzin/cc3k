@@ -1,4 +1,5 @@
 #include "interactable.h"
+#include <algorithm>
 
 // Character Class Methods
 const int Character::getHP() { return hp; }
@@ -14,15 +15,28 @@ void Character::setDef(int new_def) { def = new_def; }
 
 // Player Class Methods
 Player::Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
-  int hp_regen, int gold_steal):
+  int hp_regen, int lifesteal, int gold_steal):
   Character{hp, atk, def}, //must invoke superclass ctor
   def_hp {hp} def_atk {atk}, def_def {def}, pot_multiplier{pot_multiplier},
-  max_hp{max_hp}, hp_regen{hp_regen}, gold_steal{gold_steal} {}
+  max_hp{max_hp}, hp_regen{hp_regen}, lifesteal{lifesteal},
+  gold_steal{gold_steal} {}
 
 void Player::resetStats() {
   setAtk(this->getDefAtk());
   setDef(this->getDefDef());
 }
+
+// Only trolls have this ability
+void Player::regen() {
+  const int max = player->getDefHP(); //how much the player started with
+  setHP(std::min(this->getHP() + hp_regen, max)); // cannot be over the max hp
+}
+// currently does not support bonus classes, does not account for max hp
+// since only vampires regen and they have no cap
+void Player::lifeSteal() {
+  setHP((this->getHP() + lifesteal));
+}
+
 
 // Enemy Class Methods
 Enemy::Enemy(int hp, int atk, int def, int gold_drop, bool aggressive, bool allergy,
@@ -33,8 +47,10 @@ Enemy::Enemy(int hp, int atk, int def, int gold_drop, bool aggressive, bool alle
   player_miss_chance{player_miss_chance} {}
 
 // Potion Class Methods
-RHPot::RHPot(const int heal): heal{heal}{}
 
+/*
+// RH (Recover Health)
+RHPot::RHPot(const int heal): heal{heal}{}
 const void RHPot::checkEffect() {
   if (RH_checked == true) {
     cout << "This potion will heal you for " << heal << " points." << endl;
@@ -47,5 +63,7 @@ void RHPot::takePotion() {
   // if player is vampire (unlim hp) or will not hit hp cap
   if (max_hp == false || new_hp <= max) player->setHP(new_hp);
   else player->setHP(max); // bring HP to maximum
-
+  RH_checked = true; //after taking the potion, player knows its effect
 }
+*/
+//BA (Boost Atk)
