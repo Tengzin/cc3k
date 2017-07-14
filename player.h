@@ -13,11 +13,11 @@ class Player: public Character {
 public:
   Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
     int hp_regen, int lifesteal, int gold_steal);
+  int getHP();
+  int getAtk();
+  int getDef();
   void resetStats(); //after a level is cleared, reset atk and def
 protected:
-  virtual int getHP();
-  virtual int getAtk();
-  virtual int getDef();
   virtual ~Player() = 0;
 
   void setHP(int new_hp);

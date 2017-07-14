@@ -14,6 +14,10 @@ protected:
   int hp;
   int atk;
   int def;
+public:
+  virtual int getHP() = 0;
+  virtual int getAtk() = 0;
+  virtual int getDef() = 0;
 };
 
 

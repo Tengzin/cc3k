@@ -8,6 +8,10 @@ Player::Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
   max_hp{max_hp}, hp_regen{hp_regen}, lifesteal{lifesteal},
   gold_steal{gold_steal} {}
 
+int Player::getHP() { return hp};;
+int Player::getAtk() { return atk; }
+int Player::getDef() { return def; }
+
 const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }

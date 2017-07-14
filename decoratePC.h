@@ -6,11 +6,6 @@ protected: Player *character;
 public:
   PCDecorator(Player *p);
   virtual ~PCDecorator();
-
-  int getHP();
-  int getAtk();
-  int getDef();
-
 };
 
 
