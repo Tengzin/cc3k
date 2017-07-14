@@ -15,8 +15,14 @@ bool merch_agressive = 0;
 int main() {
 
 
-
-
+  string s;
+  while(getline(cin, s)) {
+    istringstream(iss);
+    string word;
+    while(iss >> word) {
+    
+    }
+  }
 
 
 }
