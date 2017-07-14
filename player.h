@@ -13,6 +13,8 @@ class Player: public Character {
 public:
   Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
     int hp_regen, int lifesteal, int gold_steal);
+  void resetStats(); //after a level is cleared, reset atk and def
+protected:
   virtual int getHP();
   virtual int getAtk();
   virtual int getDef();
@@ -21,10 +23,10 @@ public:
   void setHP(int new_hp);
   void setAtk(int new_atk);
   void setDef(int new_def);
+  const int getPotMulti();
   const int getDefHP();
   const int getDefAtk(); //returns default value for resetting
   const int getDefDef();
-  void resetStats(); //after a level is cleared, reset atk and def
   void regen(); //Player could regen hp at the end of a turn if vampire
   void lifeSteal(); // Gain HP after attacking an enemy
 };

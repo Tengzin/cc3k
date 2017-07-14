@@ -12,6 +12,8 @@ const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
 
+const int Player::getPotMulti() { return pot_multiplier; }
+
 void Character::setHP(int new_hp) { hp = new_hp; }
 void Character::setAtk(int new_atk) { atk = new_atk; }
 void Character::setDef(int new_def) { def = new_def; }
