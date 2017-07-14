@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "interactable.h"
+#include "map.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ bool merch_agressive = 0;
 
 
 int main() {
-
+  //can't bool merch_agressive = 0; go here? I don't know if it matters too much
 
   string s;
   while(getline(cin, s)) {
