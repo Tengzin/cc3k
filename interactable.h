@@ -14,6 +14,7 @@ protected:
   int hp;
   int atk;
   int def;
+  int gold;
 public:
   virtual int getHP() = 0;
   virtual int getAtk() = 0;
