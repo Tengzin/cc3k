@@ -3,18 +3,19 @@
 
 
 class Tile {  /// public inheritance? Struct? KSHITIJJJJJJJ
-  bool stairs;
-  bool passage;
-  bool coin;
-  int coin;
-  Interactable *inter = nullptr;
-
+  bool stairs = false;
+  bool passage = false;
+//  bool coin = false; //necessary? if (tile.coin > 0) .... instead of if (tile.coin) ....
+  int coin = 0;
+  Interactable *inter = nullptr;    //enemy, PC, or potion
   int r;  //row
   int c;  //column
+
   public:
-  //do we need an Info class to get all the info from a given tile?
-  //or do we just do a bunch of 'getInfo' functions?
-  Info getInfo() override;
+  void setCoords(int row, int col);
+  Info getInfo() const override;
+
+  //void notify   KSHITIJJJJJJ
 };
 
 
