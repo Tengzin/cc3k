@@ -9,8 +9,7 @@ class WoundAtk: public PCDecorator {
   int atk_loss;
 public:
   WoundAtk(int atk_loss, Player *pc);
-  int getAtk();
+  int getAtk() override;
 };
-
 
 #endif
