@@ -13,9 +13,9 @@ class Player: public Character {
 public:
   Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
     int hp_regen, int lifesteal, int gold_steal);
-  int getHP();
-  int getAtk();
-  int getDef();
+  int getHP() override;
+  int getAtk() override;
+  int getDef() override;
   void resetStats(); //after a level is cleared, reset atk and def
 protected:
   virtual ~Player() = 0;

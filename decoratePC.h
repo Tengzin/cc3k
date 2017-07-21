@@ -2,9 +2,9 @@
 #define DECORATEPC_H
 
 class PCDecorator: public Player {
-protected: Player *character;
+protected: Player *pc;
 public:
-  PCDecorator(Player *p);
+  PCDecorator(Player *pc);
   virtual ~PCDecorator();
 };
 

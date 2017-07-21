@@ -8,7 +8,7 @@ const int lowest_atk = 0; //could perhaps change in future?
 
 WoundAtk::WoundAtk(int atk_loss, Player *pc):
   PCDecorator{pc}, atk_loss{atk_loss}  {
-    if (checked == true) cout << "You lost " << atk_loss "ATK points." << endl;
+    cout << "You lost " << atk_loss "ATK points." << endl;
     checked = 1; // after using the potion, Player knows
   }
 int WoundAtk::getAtk() {

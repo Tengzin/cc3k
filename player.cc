@@ -8,7 +8,7 @@ Player::Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
   max_hp{max_hp}, hp_regen{hp_regen}, lifesteal{lifesteal},
   gold_steal{gold_steal} {}
 
-int Player::getHP() { return hp};;
+int Player::getHP() { return hp; }
 int Player::getAtk() { return atk; }
 int Player::getDef() { return def; }
 

@@ -21,7 +21,4 @@ public:
   virtual int getDef() = 0;
 };
 
-
-
-
 #endif
