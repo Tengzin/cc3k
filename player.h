@@ -5,30 +5,29 @@ class Player: public Character {
   const int def_hp;
   const int def_atk;
   const int def_def;
-  int pot_multiplier; //potion multiplier, drow character has 1.5x
-  bool max_hp; //if there is a hp cap, vampires have no cap
-  int hp_regen;
-  int lifesteal;
-  int gold_steal; //goblins steal 5 gold from killing enemies
 public:
-  Player(int hp, int atk, int def, int pot_multiplier, bool max_hp,
-    int hp_regen, int lifesteal, int gold_steal);
+  Player(int hp, int atk, int def);
   int getHP() override;
   int getAtk() override;
   int getDef() override;
+
+  virtual void Strike(Enemy *e) = 0;
+  virtual void beStruckBy(Enemy *e) = 0;
+
+  virtual void takePotion();
+  virtual void autoLoot(Enemy *e);
+  virtual void regen() {};
+
   void resetStats(); //after a level is cleared, reset atk and def
 protected:
   virtual ~Player() = 0;
 
-  void setHP(int new_hp);
+  virtual void heal(int hp_gain);
   void setAtk(int new_atk);
   void setDef(int new_def);
-  const int getPotMulti();
   const int getDefHP();
   const int getDefAtk(); //returns default value for resetting
   const int getDefDef();
-  void regen(); //Player could regen hp at the end of a turn if vampire
-  void lifeSteal(); // Gain HP after attacking an enemy
 };
 
 #endif
