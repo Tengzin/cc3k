@@ -3,10 +3,11 @@
 
 struct Info {
   int r, c;
-  bool stairs;
   bool passage;
+  bool isWall;
+  bool isStep;
   int coin;
-  //Interactable *inter ???
+  Interactable *I;
 };
 
 

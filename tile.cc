@@ -1,18 +1,21 @@
 #include "tile.h"
 
-
-void Tile::setCoords(int row, int col) {
-  this->r = row;
-  this->c = col;
-}
-
-
 Info Tile::getInfo() const {
   Info i;
   i.r = this->r;
   i.c = this->c;
-  i.stairs = this->stairs;
   i.passage = this->passage;
+  i.isWall = this->isWall;
+  i.isStep = this->isStep;
   i.coin = this->coin;
-  // Interactable *inter ???
+  i.I = this->inter;
 }
+
+void Tile::change(Info target) {
+  this->isStep = target.isStep;
+  this->inter = target.I;
+  this.notifyObservers(SubscriptionType::All);
+}
+
+Tile::Tile(bool passage, bool isWall, bool isStepable, int r, int c) :
+  passage(passage), isWall(isWall), isStepable(isStepable), r(r), c(c) {}

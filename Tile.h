@@ -1,21 +1,21 @@
 #ifndef TILE_H
 #define TILE_H
+#include "subject.h"
+#include "observer.h"
 
-
-class Tile {  /// public inheritance? Struct? KSHITIJJJJJJJ
-  bool stairs = false;
-  bool passage = false;
-//  bool coin = false; //necessary? if (tile.coin > 0) .... instead of if (tile.coin) ....
+class Tile {  //+this inherits from Subject
+  int r;
+  int c;
+  bool passage;
+  bool isWall;
+  bool isStep;
   int coin = 0;
-  Interactable *inter = nullptr;    //enemy, PC, or potion
-  int r;  //row
-  int c;  //column
+  Interactable *inter = nullptr;
 
   public:
-  void setCoords(int row, int col);
   Info getInfo() const override;
-
-  //void notify   KSHITIJJJJJJ
+  void change(Info target);
+  Tile(bool passage, bool isWall, bool isStepable, int r, int c);
 };
 
 
