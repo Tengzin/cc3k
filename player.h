@@ -11,23 +11,26 @@ public:
   int getAtk() override;
   int getDef() override;
 
-  virtual void Strike(Enemy *e) = 0;
-  virtual void beStruckBy(Enemy *e) = 0;
+  virtual void Strike(Enemy *e);
+  virtual void beStruckBy(Enemy *e);
 
-  virtual void takePotion();
+  virtual void takePotion(Potion *p, int multiplier);
   virtual void autoLoot(Enemy *e);
-  virtual void regen() {};
+
 
   void resetStats(); //after a level is cleared, reset atk and def
 protected:
   virtual ~Player() = 0;
-
   virtual void heal(int hp_gain);
   void setAtk(int new_atk);
   void setDef(int new_def);
   const int getDefHP();
   const int getDefAtk(); //returns default value for resetting
   const int getDefDef();
+  //Race specifics
+  virtual void regen() {};
+  virtual void isDrow() { return false; }
+
 };
 
 #endif
