@@ -100,7 +100,7 @@ mapLayout::init() {
   }
 }
 
-ostream &operator<<(ostream &out, const mapLayout &l) {
+ostream &operator<<(ostream &out, const mapLayout &md) {
   out << *(l.md);
   return out;
 }
@@ -125,10 +125,22 @@ ostream &operator<<(ostream &out, const mapLayout &l) {
 void mapLayout::move(string s) {
 	int x = 0;
 	int y = 0;
-	if (s == "no") --x;
-	if (s == "so") ++x;
-	if (s == "we") ++y;
-	if (s == "ea") --y;
+	if (s == "no") --y;
+	if (s == "so") ++y;
+	if (s == "we") --x;
+	if (s == "ea") ++x;
+	if (s == "ne") {
+		++x; --y;
+	}
+	if (s == "se") {
+		++x; ++y;
+	}
+	if (s == "sw") {
+		--x; ++y;
+	}
+	if (s == "nw") {
+		--x; --y;
+	}
 		Info currTile = layout[PC_r][PC_c].getInfo();
 		Info nextTile = layout[PC_r+x][PC_c+y].getInfo();
 		if (nextTile.isStep) {
@@ -137,5 +149,5 @@ void mapLayout::move(string s) {
 			PC_r = PC_r+x;
 			PC_c = PC_c+y;
 		}
-		else throw ("DONT GO HERE, Are ye blind?")
+		// else throw ("DONT GO HERE, Are ye blind?")
 	}
