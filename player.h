@@ -5,6 +5,7 @@ class Player: public Character {
   const int def_hp;
   const int def_atk;
   const int def_def;
+  int gold;
 public:
   Player(int hp, int atk, int def);
   int getHP() override;
@@ -15,7 +16,7 @@ public:
   virtual void beStruckBy(Enemy *e);
 
   virtual void takePotion(Potion *p, int multiplier);
-  virtual void autoLoot(Enemy *e);
+  virtual void autoLoot();
 
 
   void resetStats(); //after a level is cleared, reset atk and def

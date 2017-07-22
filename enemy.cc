@@ -1,9 +1,15 @@
 #include "enemy.h"
 
 // Enemy Class Methods
-Enemy::Enemy(int hp, int atk, int def, int gold_drop, bool aggressive, bool allergy,
-  int num_atks, double atk_multiplier, double player_miss_chance):
-  Character{hp, atk, def},
-  gold_drop{gold_drop}, aggressive{aggressive}, allergy{allergy},
-  num_atks{num_atks}, atk_multiplier{atk_multiplier},
-  player_miss_chance{player_miss_chance} {}
+Enemy::Enemy(int hp, int atk, int def):
+  Character{hp, atk, def, 0} {}
+
+void Enemy::Strike(Player *pc) {
+  pc->beStruckBy(this);
+}
+
+void Enemy::beStruckBy(Player *pc) {
+  const int dmg = pc->getAtk();
+  damaged(dmg);
+  if (this->isDead() == true) pc->autoLoot();
+}

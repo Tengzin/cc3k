@@ -2,18 +2,15 @@
 
 // Player Class Methods
 Player::Player(int hp, int atk, int def):
-  Character{hp, atk, def}, //must invoke superclass ctor
-  def_hp {hp} def_atk {atk}, def_def {def} {}
+  Character{hp, atk, def, 0}, //must invoke superclass ctor
+  def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
 
 int Player::getHP() { return hp; }
 int Player::getAtk() { return atk; }
 int Player::getDef() { return def; }
 
-void Player::Strike() {
+void Player::Strike(Enemy *e) {
   e->beStruckBy(this);
-  if (e->isDead() == true) {
-    this->autoLoot(e);
-  }
 }
 
 void Player::beStruckBy(Enemy *e) {
@@ -39,4 +36,9 @@ void Player::setDef(int new_def) { def = new_def; }
 void Player::resetStats() {
   setAtk(this->getDefAtk());
   setDef(this->getDefDef());
+}
+
+void autoLoot() {
+  //use random functoin to generate 1 or 2
+  // and add to gold immediately
 }
