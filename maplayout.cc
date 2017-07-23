@@ -153,7 +153,7 @@ void mapLayout::placeInteractables() {
 	int char_n = RandomNumber(5);
 	int x = RandomNumber(room[char_n-1].size());
 	Info charloc = room[char_n-1][x-1].getInfo();
-	Info playerInfo = {0,0,,,}//Create struct for PC;
+	Info playerInfo = {0,0,,,};//Create struct for PC;
 	layout[charLoc.r][charLoc.c].change(playerInfo);
 	//DONE WITH PC
 	//Now stairs
@@ -162,19 +162,103 @@ void mapLayout::placeInteractables() {
 		stair_n = RandomNumber(5);
 	}
 	x = RandomNumber(room[stair_n-1].size());
-	Info stairLoc = room[stair_n][x-1].getinfo();
+	Info stairLoc = room[stair_n-1][x-1].getinfo();
 	stair_r = stairLoc.r;
 	stair_c = stairLoc.c;
 	//Done with Stairs (add stair location checker in move)
 	//Now make the potions.
-  for (int i = 0; i < potionLimit; ++i) {
-
+  for (int i = 0; i < potionLimit; ++i) {				//POTIONS
+		int chamb = RandomNumber(5);	//which chamber
+		int loc;
+		Info locInfo;
+		while (true){
+			loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+			locInfo = room[chamb-1][loc-1].getInfo();
+			if (!(locInfo.r == stair_r && locInfo.c == stair_c) && !(locInfo.r == charLoc.r && locInfo.c == charLoc.c)) {
+				break;
+			}
+		}
+		int type = RandomNumber(6);		//which potion
+		Info potloc = room[chamb-1][loc-1].getInfo();
+		Info potInfo = {...};//construct the type-th potion
+		layout[potloc.r][potloc.c].change(potInfo);
 	}
-	for (int j = 0; j < goldLimit; ++j) {
-
+	for (int j = 0; j < goldLimit; ++j) {					//GOLD
+		int chamb = RandomNumber(5);	//which chamber
+		int loc;
+		Info locInfo;
+		while (true){
+			loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+			locInfo = room[chamb-1][loc-1].getInfo();
+			if (!(locInfo.r == stair_r && locInfo.c == stair_c) && !(locInfo.r == charLoc.r && locInfo.c == charLoc.c)) {
+				break;
+			}
+		}
+		int gtype = RandomNumber(8);
+		int gvalue;
+		Info gold;
+		if (gtype <= 7) {
+			if (gtype <= 5) {
+				gvalue = 2;		//normal
+			}
+			else {
+				gvalue = 1;		//small
+			}
+			gold = {... gvalue ...};
+		}
+		else {
+			gvalue = 6; 	//dragon
+			//need to check if one of the tiles surrounding our tile is able to take a dragon
+			//maybe while(true)
+				//random number between 1 and 8
+				//get that tile's info (need to check if it's a wall, already has PC or potion)
+			//construct 2 dragons, one for the gold tile, and one for the tile next to gold
+			gold = {... gvalue ... dragon1};
+			Info dragon = {... ... dragon2};
+			//layout[surroungind position][surrounding position].change(dragon);
+		}
+		layout[locInfo.r][locInfo.c].change(gold);
 	}
-	for (int j = 0; j < EnemiesLimit; ++j) {
-
+	for (int j = 0; j < EnemiesLimit; ++j) {			//ENEMIES
+		int chamb = RandomNumber(5);	//which chamber
+		int loc;
+		Info locInfo;
+		while (true){
+			loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+			locInfo = room[chamb-1][loc-1].getInfo();
+			if (!(locInfo.r == stair_r && locInfo.c == stair_c) && !(locInfo.r == charLoc.r && locInfo.c == charLoc.c)) {
+				if (locInfo.I == nullptr) {
+					break;
+				}
+			}
+		}
+		etype = RandomNumber(18);
+		Info enemy;
+		if (etype <= 4) {					//human
+			//make a human
+			enemy = {...human...};
+		}
+		else if (etype <= 7) {		//dwarf
+			//make a dwarf
+			enemy = {...dwarf...};
+		}
+		else if (etype <= 12) {		//Halfling
+			//make a halfling
+			enemy = {...halfling...};
+		}
+		else if (etype <= 14) {		//Elf
+			//make an elf
+			enemy = {...elf...};
+		}
+		else if (etype <= 16) {		//Orc
+			//make an orc
+			enemy = {...orc...};
+		}
+		else {										//Merchant
+			//make a merchant
+			enemy = {...merchant...};
+		}
+		layout[chamb-1][loc-1].change(enemy);
 	}
 }
 
