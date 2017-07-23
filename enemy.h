@@ -10,6 +10,8 @@ public:
 
   virtual void Strike(Player *pc);
   virtual void beStruckBy(Player *pc);
+
+  virtual void movement() override;
 };
 
 
