@@ -3,7 +3,7 @@
 
 class Human: public Enemy {
 public:
-  Human(int hp, int atk, int def);
+  Human();
 };
 
 #endif

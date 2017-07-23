@@ -1,4 +1,5 @@
 #include "human.h"
 
-Human::Human(int hp, int atk, int def):
+Human::Human():
+Character{110, 15, 20, 0}
 Enemy{} {}
