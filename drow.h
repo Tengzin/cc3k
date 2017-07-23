@@ -3,7 +3,7 @@
 
 class Drow: public Player {
 public:
-  Drow(int hp, int atk, int def);
+  Drow();
   void beStruckBy(Enemy *e) override;
 };
 

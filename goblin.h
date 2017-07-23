@@ -3,7 +3,7 @@
 
 class Goblin: public Player {
 public:
-  Goblin(int hp, int atk, int def);  
+  Goblin();
   void beStruckBy(Enemy *e) override;
   void autoLoot(Enemy *e) override;
 };

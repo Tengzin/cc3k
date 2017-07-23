@@ -1,10 +1,10 @@
 #include "vampire.h"
 
-Vampire::Vampire(int hp, int atk, int def):
-  Character{hp, atk, def},
-  Player{hp, atk, def, 0}, lifesteal{5} {}
+Vampire::Vampire():
+  Character{50, 25, 25, 0},
+  Player{50, 25, 25, 0}, lifesteal{5} {}
 
-void Vampire::heal(int hp_gain) {
-  // Must check for a dwarf
-  hp = hp + hp_gain;
+void Vampire::heal() {
+  // Must check for a dwarf!!
+  hp = hp + lifesteal;
 }

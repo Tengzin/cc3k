@@ -1,7 +1,8 @@
 #include "goblin.h"
 
-Goblin::Goblin(int hp, int atk, int def):
-Player(hp, atk, def) {}
+Goblin::Goblin():
+Character{110, 15, 20, 0}
+Player{110, 15, 20, 0} {}
 
 void Goblin::beStruckBy(Enemy *e) {
   const int e_atk = e->getAtk();

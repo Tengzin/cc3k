@@ -3,8 +3,7 @@
 
 class Human: public Player {
 public:
-  Human(int hp, int atk, int def);
-  
+  Human(int hp, int atk, int def);  
 };
 
 #endif

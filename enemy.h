@@ -3,7 +3,7 @@
 
 class Enemy: public Character {
 public:
-  Enemy(int hp, int atk, int def, bool isDead);
+  Enemy(int hp, int atk, int def);
   int getHP() override;
   int getAtk() override;
   int getDef() override;

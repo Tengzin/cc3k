@@ -3,7 +3,7 @@
 
 class Troll: public Player {
 public:
-  Troll(int hp, int atk, int def);  
+  Troll();
   void regen() override; //troll specific
 };
 
