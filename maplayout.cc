@@ -265,29 +265,70 @@ void mapLayout::placeInteractables() {
 void mapLayout::move(string s) {
 	int x = 0;
 	int y = 0;
-	if (s == "no") --y;
-	if (s == "so") ++y;
-	if (s == "we") --x;
-	if (s == "ea") ++x;
+	if (s == "no") --r;
+	if (s == "so") ++r;
+	if (s == "we") --c;
+	if (s == "ea") ++c;
 	if (s == "ne") {
-		++x; --y;
+		++c; --r;
 	}
 	if (s == "se") {
-		++x; ++y;
+		++c; ++r;
 	}
 	if (s == "sw") {
-		--x; ++y;
+		--c; ++r;
 	}
 	if (s == "nw") {
-		--x; --y;
+		--c; --r;
 	}
-		Info currTile = layout[PC_r][PC_c].getInfo();
-		Info nextTile = layout[PC_r+x][PC_c+y].getInfo();
-		if (nextTile.isStep) {
-			layout[PC_r+x][PC_c+y].change(currTile);
-			layout[PC_r][PC_c].change(nextTile);
-			PC_r = PC_r+x;
-			PC_c = PC_c+y;
+	Info currTile = layout[PC_r][PC_c].getInfo();
+	Info nextTile = layout[PC_r+r][PC_c+c].getInfo();
+	if (nextTile.isStep) {
+		layout[PC_r+r][PC_c+c].change(currTile);
+		layout[PC_r][PC_c].change(nextTile);
+		PC_r = PC_r+r;
+		PC_c = PC_c+c;
+	}
+	// else throw ("DONT GO HERE, Are ye blind?")
+}
+
+
+void moveEnemies() {
+	vector<Tile> enemies;
+	for(int i = 0; i < 25; ++i) {
+		for(int j = 0; j < 79; ++j) {
+			Info currtile = layout[i][j].getInfo();
+			if (curtile.I != nullptr) {
+				if (curtile.I.movement()) enemies.push_back(layout[i][j]);
+			}
 		}
-		// else throw ("DONT GO HERE, Are ye blind?")
 	}
+	int vecSize = enemies.size();
+	for(int i = 0; i < vecSize; ++i) {
+		int move = RandomNumber(8);
+		Info currTile = enemies[i].getInfo();
+		int r = currTile.r;
+		int c = currTile.c;
+		if (move == 1) {
+			--r; --c;
+		}
+		else if (move == 2) --r;
+		else if (move ==3 ) {
+			--r; ++c;
+		}
+		else if (move == 4) ++c;
+		else if (move == 5) {
+			++r; ++c;
+		}
+		else if (move == 6) ++r;
+		else if (move == 7) {
+			++r; --c;
+		}
+		else --c;
+		Info nextTile = layout[r][c].getInfo();
+		if (nextTile.isStep && !nextTile.isWall && !nextTile.passage) {
+			layout[r][c].change(currTile);
+			layout[currTile.r][currTile.c].change(nextTile);
+		}
+	}
+}

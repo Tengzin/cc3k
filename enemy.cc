@@ -13,3 +13,5 @@ void Enemy::beStruckBy(Player *pc) {
   damaged(dmg);
   if (this->isDead() == true) pc->autoLoot();
 }
+
+void movement() { return true; }
