@@ -27,6 +27,8 @@ class mapLayout {
   void placeInteractables();
   void move (string s);
   void moveEnemies();
+  void attack(string s);
+  void take (string s);
   friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md);
 };
 

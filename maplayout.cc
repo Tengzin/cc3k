@@ -409,5 +409,29 @@ void mapLayout::attack (string s) {
 	}
 	Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
 	Info playerTile = layout[PC_r][PC_r].getInfo();
-	playerTile.I->strike(enemyTile.I);
+	playerTile.I->strike(enemyTile.I); //add what happens if a nullptr is passed to these functions
+}
+
+void mapLayout::take (string s) {
+	int x = 0;
+	int y = 0;
+	if (s == "no") --r;
+	if (s == "so") ++r;
+	if (s == "we") --c;
+	if (s == "ea") ++c;
+	if (s == "ne") {
+		++c; --r;
+	}
+	if (s == "se") {
+		++c; ++r;
+	}
+	if (s == "sw") {
+		--c; ++r;
+	}
+	if (s == "nw") {
+		--c; --r;
+	}
+	Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
+	Info playerTile = layout[PC_r][PC_c].getInfo();
+	playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions. 
 }
