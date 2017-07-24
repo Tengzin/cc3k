@@ -8,6 +8,8 @@ public:
   int getAtk() override;
   int getDef() override;
 
+  void notify(Player *pc);
+
   virtual void Strike(Player *pc);
   virtual void beStruckBy(Player *pc);
   virtual void isOrc() { return false; }

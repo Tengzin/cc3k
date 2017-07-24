@@ -1,23 +1,44 @@
 #include "potion.h"
+#include <iostream>
+using namespace std;
 
-
-
-/*
-// RH (Recover Health)
-RHPot::RHPot(const int heal): heal{heal}{}
-const void RHPot::checkEffect() {
-  if (RH_checked == true) {
-    cout << "This potion will heal you for " << heal << " points." << endl;
+void Potion::notify(Player *pc) {
+  const int pot = RandomNumber(6);
+  if (pot == 1) {
+    pot_type = "RH";
+    if (RH_checked) {
+    cout << "There is a Healing potion here! It will heal up to 10 HP." << endl;
+    }
   }
-  else cout << "Effect unknown." << endl;
+  else if (pot == 2) {
+    pot_type = "BA";
+    if (BA_checked) {
+    cout << "There is a Boost ATK potion here! It will grant 5 ATK." << endl;
+  }
+  else if (pot == 3) {
+    pot_type = "BD";
+    if (BD_checked) {
+    cout << "There is a Boost DEF potion here! It will grant 5 DEF." << endl;
+    }
+  }
+  else if (pot == 4) {
+    pot_type = "PH";
+    if (PH_checked) {
+    cout << "There is a Poison potion here! It will do 10 damage." << endl;
+    }
+  }
+  else if (pot == 5)
+  {
+    pot_type = "WA";
+    if (WA_checked) {
+    cout << "There is a Wound ATK potion here! Lose 5 ATK." << endl;
+    }
+  }
+  else {
+    pot_type = "WD";
+    if (WD_checked) {
+    cout << "There is a Wound DEF potion here! Lose 5 DEF." << endl;
+    }
 }
-void RHPot::takePotion() {
-  const int max = player->getDefHP(); //how much the player started with
-  int new_hp = player->getHP() + heal;
-  // if player is vampire (unlim hp) or will not hit hp cap
-  if (max_hp == false || new_hp <= max) player->setHP(new_hp);
-  else player->setHP(max); // bring HP to maximum
-  RH_checked = true; //after taking the potion, player knows its effect
-}
-*/
-//BA (Boost Atk)
+
+String Potion::getPotType() { return pot_type; }

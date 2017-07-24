@@ -12,6 +12,15 @@ using namespace std;
 //Global variables
 // if the player attacks 1 merchant, ALL future merchants become aggressive
 bool merch_aggressive = 0;
+
+//Potions
+bool RH_checked = 0;
+bool BA_checked = 0;
+bool BD_checked = 0;
+bool PH_checked = 0;
+bool WA_checked = 0;
+bool WD_checked = 0;
+
 int level = 1;
 bool enemyMove = true;      // if user types "r" it resets everything. I did continue (ie start over the while loop)
                             // if might be easier to put these variable in the while so they get reset

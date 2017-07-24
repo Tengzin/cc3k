@@ -15,7 +15,7 @@ public:
   virtual void Strike(Enemy *e);
   virtual void beStruckBy(Enemy *e);
 
-  virtual void takePotion(Potion *p, int multiplier);
+  virtual void takePotion(Potion *p);
   virtual void autoLoot();
 
 
