@@ -9,6 +9,7 @@ Info Tile::getInfo() const {
   i.isStep = this->isStep;
   i.coin = this->coin;
   i.I = this->inter;
+  return i;
 }
 
 void Tile::change(Info target) {

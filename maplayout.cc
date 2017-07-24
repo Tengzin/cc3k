@@ -100,14 +100,6 @@ void whichRoom(Subject &mytile) {
 		}
 	}
 }
-// void roords (int &room, int &x, int &y) {
-// 	room = RandomNumber(7);
-// 	Coords p = v[room-1];
-// 	int width = p.rx-p.lx;
-// 	int height = p.by-p.ty;
-// 	x = x + RandomNumber(width);
-// 	y = y + RandomNumber(height);
-// }
 
 void mapLayout::init() {
   mapDisplay *md = new mapDisplay;
