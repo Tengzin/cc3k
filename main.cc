@@ -56,6 +56,7 @@ int main() {
       else if (s == "f") enemyMove = !enemyMove;
       else if (s == u) {
         cin >> dir;
+        l.attack(dir);
         if (dir == "q" || dir == "r") break;
         // take potion in dir direction
       }
