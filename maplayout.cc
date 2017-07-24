@@ -40,6 +40,15 @@ int RandomNumber(n){
 	return randNum;
 }
 
+mapLayout::mapLayout() {
+	//Do nothing?
+}
+
+mapLayout::~mapLayout() {
+	delete this->md;
+	layout.clear();
+}
+
 void whichRoom(Subject &mytile) {
 	Info myInfo = mytile.getInfo();
 	int r = myInfo.r;
@@ -100,7 +109,7 @@ void whichRoom(Subject &mytile) {
 // 	y = y + RandomNumber(height);
 // }
 
-mapLayout::init() {
+void mapLayout::init() {
   mapDisplay *md = new mapDisplay;
   this->md = md;
   ifstream layoutFile ("layout.txt");
@@ -386,7 +395,6 @@ void moveEnemies() {
 		if (nextTile.isStep && !nextTile.isWall && !nextTile.passage) {
 			layout[r][c].change(currTile);
 			layout[currTile.r][currTile.c].change(nextTile);
->>>>>>> 4fc5b0fb343bda6dcb38fb94090cc7955df2384a
 		}
 	}
 }

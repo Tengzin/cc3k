@@ -14,7 +14,7 @@ class mapDisplay : public Observer {
   mapDisplay();
   void notify(Subject &whoNotified);
   SubscriptionType subType () const override;
-  //~mapDisplay();
+  ~mapDisplay();
   friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md);
 };
 

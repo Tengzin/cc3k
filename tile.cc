@@ -20,3 +20,16 @@ void Tile::change(Info target) {
 
 Tile::Tile(bool passage, bool isWall, bool isStepable, int r, int c) :
   passage(passage), isWall(isWall), isStepable(isStepable), r(r), c(c) {}
+
+void Tile::notify(Subject &whoNotified) {
+  //Call the notify or attack or potion functionof Interactable?
+}
+
+SubscriptionType Tile::subType() {
+  if (this->inter == nullptr) return SubscriptionType::None;
+  else return SubscriptionType::Interactable;
+}
+
+Tile::~Tile() {
+  delete this->inter;
+}

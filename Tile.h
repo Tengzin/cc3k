@@ -16,6 +16,10 @@ class Tile {  //+this inherits from Subject
   Info getInfo() const override;
   void change(Info target);
   Tile(bool passage, bool isWall, bool isStepable, int r, int c);
+  void notify(Subject &whoNotified) override;
+  SubscriptionType subType(); //Virtual? //If interactable return that else return something else;
+  ~Tile();
+
 };
 
 

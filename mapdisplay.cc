@@ -50,3 +50,5 @@ void mapDisplay::notify(Subject &whoNotified) {
 SubscriptionType mapDisplay::subType() {
   return SubscriptionType::All;
 }
+
+mapDisplay::~mapDisplay(); 

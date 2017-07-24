@@ -22,11 +22,13 @@ class mapLayout {
   //const int enemyLimit = 20; //to check whether we've created enough enemies;
   //declare the coordinate structure here
   public:
+  mapLayout();
+  ~mapLayout();
   void init (); //initalise the floor.
   void placeInteractables(); //
   void move (string s);
   //void toggleStep();
-  void moveEnemies();  
+  void moveEnemies();
   friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md);
 };
 
