@@ -24,12 +24,22 @@ const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
 
-void takePotion(Potion *p) {} //generate and decorate player with potion
+void takePotion(Potion *p) {
+  String pot = p->getPotType();
+  if (pot == "RH") { this->heal(10); }
+  else if (pot == "WA") { this = new WoundAtk(5, this); }
+  else if (pot == "BA") { this = new BoostAtk(5, this); }
+  else if (pot == "WD") { this = new WoundDef(5, this); }
+  else if (pot == "BD") { this = new BoostDef(5, this); }
+  else {
+    this->heal(-10);
+    if (this->getHP() <= 0) this->setDead(true);
+  }
+} //generate and decorate player with potion
 
 void Player::heal(int hp_gain) {
   const int max = this->getDefHP(); //how much the player started with
   hp = std::min(max, this->getHP() + hp_gain)
-
 }
 void Player::setAtk(int new_atk) { atk = new_atk; }
 void Player::setDef(int new_def) { def = new_def; }

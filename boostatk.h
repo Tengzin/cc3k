@@ -4,8 +4,7 @@
 
 #include "decoratePC.h"
 
-class BoostAtk: public PCDecorator {
-  static int checked;
+class BoostAtk: public PCDecorator {  
   int atk_gain;
 public:
   BoostAtk(int atk_gain, Player *pc);

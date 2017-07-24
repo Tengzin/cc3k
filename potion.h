@@ -1,13 +1,14 @@
 #ifndef POTION_H
 #define POTION_H
+#include <string>
+#include "maplayout.h"
 
 // Potions: Should Use Decorator Pattern
 class Potion: public Interactable {
+  string pot_type;
 public:
-  virtual void checkEffect() = 0;
-  virtual void takePotion() = 0;
-
-  void notify(Player *character);
+  void notify(Player *pc);
+  String getPotType();
 };
 
 
