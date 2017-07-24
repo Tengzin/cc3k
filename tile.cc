@@ -9,11 +9,13 @@ Info Tile::getInfo() const {
   i.isStep = this->isStep;
   i.coin = this->coin;
   i.I = this->inter;
+  return i;
 }
 
 void Tile::change(Info target) {
   this->isStep = target.isStep;
   this->inter = target.I;
+  this->coin = target.coin;
   this.notifyObservers(SubscriptionType::All);
   this.notifyObservers(SubscriptionType::Interactable);
 }
