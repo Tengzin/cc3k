@@ -22,7 +22,8 @@ Tile::Tile(bool passage, bool isWall, bool isStepable, int r, int c) :
   passage(passage), isWall(isWall), isStepable(isStepable), r(r), c(c) {}
 
 void Tile::notify(Subject &whoNotified) {
-  //Call the notify or attack or potion functionof Interactable?
+  Info myInfo = whoNotified.getinfo();
+  this->inter.notify(myInfo.I);
 }
 
 SubscriptionType Tile::subType() {

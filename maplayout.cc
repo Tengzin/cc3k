@@ -346,7 +346,6 @@ void mapLayout::move(string s) {
 	if (s == "nw") {
 		--c; --r;
 	}
-=======
 	Info currTile = layout[PC_r][PC_c].getInfo();
 	Info nextTile = layout[PC_r+r][PC_c+c].getInfo();
 	if (nextTile.isStep) {
