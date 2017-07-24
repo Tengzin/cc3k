@@ -10,6 +10,7 @@
 class Interactable {
 public:
   virtual bool movement();
+  virtual char whatType(Interactable *i) = 0;
 };
 
 
