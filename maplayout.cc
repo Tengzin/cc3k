@@ -11,27 +11,6 @@ std::vector<Tile> r3;
 std::vector<Tile> r4;
 std::vector<Tile> r5;
 std::vector<vector<Tile>> room;
-// Room 1 :
-// (4,4) (4,29)
-// (7,4) (7,29)
-// Room 2 : a
-// (4,40) (4,62)
-// (7,40) (7,62)
-// Room 2 : b //6
-// (8,61) (8,77)
-// (13,61) (13,77)
-// Room 3 : a
-// (17,66) (17,76)
-// (19,66) (17,76)
-// Room 3 : b //7
-// (20,38) (20,76)
-// (22,38) (22,76)
-// Room 4
-// (16,5) (16,25)
-// (22,5) (22,25)
-// Room 5
-// (11,39) (11,50)
-// (13,39) (13,50)
 
 int RandomNumber(int n){
 	srand(time(0));
@@ -201,7 +180,178 @@ ostream &operator<<(ostream &out, const mapLayout &md) {
   return out;
 }
 
-void mapLayout::placeInteractables() {
+void mapLayout::placeInteractables(string charType) {
+  //We first generate the PC
+	int char_n = RandomNumber(5);
+	int x = RandomNumber(room[char_n-1].size());
+	Info charloc = room[char_n-1][x-1].getInfo();
+	PC_r = charloc.r;
+	PC_c = charloc.c;
+	//make the character
+	Interactable *inter;
+	if (charType == "s") {
+		Shade *s = new Shade();
+		inter = s;
+	}
+	else if (charType == "d") {
+		Drow *d = new Drow();
+		inter = d;
+	}
+	else if (charType == "v") {
+		Vampire *v = new Vampire();
+		inter = v;
+	}
+	else if (charType == "g") {
+		Goblin *g = new Goblin();
+		inter = g;
+	}
+	else {
+		Troll *t = new Troll();
+		inter = t;
+	}
+	Info playerInfo = {0,0,false,false,false,0,inter};//Create struct for PC;
+	layout[charLoc.r][charLoc.c].change(playerInfo);
+	//DONE WITH PC
+	//Now stairs
+	int stair_n = RandomNumber(5);
+	while (stair_n == char_n) {
+		stair_n = RandomNumber(5);
+	}
+	x = RandomNumber(room[stair_n-1].size());
+	Info stairLoc = room[stair_n-1][x-1].getinfo();
+	stair_r = stairLoc.r;
+	stair_c = stairLoc.c;
+	//Done with Stairs (add stair location checker in move)
+	//Now make the potions.
+  for (int i = 0; i < potionLimit; ++i) {				//POTIONS
+		int chamb = RandomNumber(5);	//which chamber
+		int loc;
+		Info locInfo;
+		while (true){
+			loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+			locInfo = room[chamb-1][loc-1].getInfo();
+			if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
+				break;
+			}
+		}
+		Potion *pot = new Potion();
+		Interactable *inter2 = pot;
+		Info potloc = room[chamb-1][loc-1].getInfo();
+		Info potInfo = {0,0,false,false,false,0,inter2};
+		layout[potloc.r][potloc.c].change(potInfo);
+	}
+	for (int j = 0; j < goldLimit; ++j) {					//GOLD
+		int chamb = RandomNumber(5);	//which chamber
+		int gtype = RandomNumber(8);
+		Info locInfo;
+		Info gold;
+		int gvalue;
+		if (gtype <= 7) {
+			while (true){
+				int loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+				locInfo = room[chamb-1][loc-1].getInfo();
+				if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
+					break;
+				}
+			}
+			if (gtype <= 5) {
+				gvalue = 2;		//normal
+			}
+			else {
+				gvalue = 1;		//small
+			}
+			gold = {0,0,false,false,false,false,0,nullptr};
+			layout[locInfo.r][locInfo.c].change(gold);
+		}
+		else {
+			Info dragInfo;
+			while (true){
+				loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+				locInfo = room[chamb-1][loc-1].getInfo();
+				if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
+					int drag = RandomNumber(8);
+					int r = locInfo.r;
+					int c = locInfo.c;
+					if (drag == 1) {
+						--r; --c;
+					}
+					else if (drag == 2) --r;
+					else if (drag ==3 ) {
+						--r; ++c;
+					}
+					else if (drag == 4) ++c;
+					else if (drag == 5) {
+						++r; ++c;
+					}
+					else if (drag == 6) ++r;
+					else if (drag == 7) {
+						++r; --c;
+					}
+					else --c;
+					dragInfo = layout[locInfo.r+r][locInfo.c+c].getInfo();
+					if (dragInfo.I == nullptr) {
+						break;
+					}
+				}
+			}
+			gvalue = 6; 	//dragon
+			Dragon *dr = new Dragon();
+			Interactable *inter3 = dr;
+			gold = {0,0,false,false,false,false,6,inter3};
+			dragInfo.coin = 6;
+			dragInfo.I = inter3;
+			layout[dragInfo.r][dragInfo.c].change(dragInfo);
+		}
+		layout[locInfo.r][locInfo.c].change(gold);
+	}
+	for (int j = 0; j < EnemiesLimit; ++j) {			//ENEMIES
+		int chamb = RandomNumber(5);	//which chamber
+		int loc;
+		Info locInfo;
+		while (true){
+			loc = RandomNumber(room[chamb-1].size());		//where in the chamber
+			locInfo = room[chamb-1][loc-1].getInfo();
+			if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
+				break;
+			}
+		}
+		etype = RandomNumber(18);
+		Info enemy;
+		if (etype <= 4) {					//human
+			Human *h = new Human();
+			Interactable *inter = h;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		else if (etype <= 7) {		//dwarf
+			Dwarf *d = new Dwarf();
+			Interactable *inter = d;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		else if (etype <= 12) {		//Halfling
+			Halfling *ha = new Halfling();
+			Interactable *inter = ha;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		else if (etype <= 14) {		//Elf
+			Elf *e = new Elf();
+			Interactable *inter = e;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		else if (etype <= 16) {		//Orc
+			Orc *o = new Orc();
+			Interactable *inter = o;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		else {										//Merchant
+			Merchant *m = new Merchant();
+			Interactable *inter = m;
+			enemy = {0,0,false,false,false,locInfo.coin,inter};
+		}
+		layout[chamb-1][loc-1].change(enemy);
+	}
+}
+
+//void mapLayout::placeInteractables() {
   //We first generate the PC
 	int char_n = RandomNumber(5);
 	int x = RandomNumber(room[char_n-1].size());
@@ -410,6 +560,7 @@ void mapLayout::attack (string s) {
 	Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
 	Info playerTile = layout[PC_r][PC_r].getInfo();
 	playerTile.I->strike(enemyTile.I); //add what happens if a nullptr is passed to these functions
+	//Add what happens when the enemy is tied. return a boolean.
 }
 
 void mapLayout::take (string s) {
@@ -433,5 +584,5 @@ void mapLayout::take (string s) {
 	}
 	Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
 	Info playerTile = layout[PC_r][PC_c].getInfo();
-	playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions. 
+	playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions.
 }
