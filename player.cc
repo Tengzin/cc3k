@@ -1,4 +1,5 @@
 #include "player.h"
+#include "maplayout.h"
 
 // Player Class Methods
 /*
@@ -16,8 +17,13 @@ void Player::Strike(Enemy *e) {
 
 void Player::beStruckBy(Enemy *e) {
   const int dmg = e->getAtk();
-  if (e->isElf() == true) dmg *= 2;
-  damaged(dmg);
+  const int miss = RandomNumber(2);
+  
+  if (e->isElf() == true) {
+    const int miss_two = RandomNumber(2);
+    if (miss_two == 1) { damaged(dmg); }
+  }
+  if (miss == 1) { damaged(dmg); }
 }
 
 const int Player::getDefHP() { return def_hp; }
