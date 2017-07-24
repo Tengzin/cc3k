@@ -1,6 +1,8 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include "interactable.h"
+
 class Character: public Interactable {
 protected:
   int hp;
@@ -13,7 +15,7 @@ public:
   virtual int getDef() = 0;
   bool damaged();
   void setDead(bool dead);
-  void isDead(bool dead);
+  void checkDead(bool dead);
 };
 
 #endif

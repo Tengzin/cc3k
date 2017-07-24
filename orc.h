@@ -5,6 +5,7 @@ class Orc: public Enemy {
 public:
   Orc();
   bool isOrc() override;
+  char whatType(Interactable *i) override;
 };
 
 #endif

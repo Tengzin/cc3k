@@ -1,6 +1,10 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "interactable.h"
+#include "character.h"
+#include "player.h"
+
 class Enemy: public Character {
 public:
   Enemy();
@@ -12,8 +16,8 @@ public:
 
   virtual void Strike(Player *pc);
   virtual void beStruckBy(Player *pc);
-  virtual void isOrc() { return false; }
-  virtual void isElf() { return false; }
+  virtual bool isOrc() { return false; }
+  virtual bool isElf() { return false; }
 
   virtual void movement() override;
 };

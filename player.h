@@ -1,6 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "character.h"
+#include "interactable.h"
+#include "enemy.h"
+#include "potion.h"
+
 class Player: public Character {
   const int def_hp;
   const int def_atk;
@@ -31,7 +36,7 @@ protected:
   const int getDefDef();
   //Race specifics
   virtual void regen() {};
-  virtual void isDrow() { return false; }
+  virtual bool isDrow() { return false; }
 
 };
 

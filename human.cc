@@ -3,3 +3,5 @@
 Human::Human():
 Character{110, 15, 20, 0}
 Enemy{} {}
+
+char Human::whatType(Interactable *i) { return 'H'; }

@@ -4,6 +4,9 @@ Merchant::Merchant():
 Character{30, 70, 5, 0}
 Enemy{} {}
 
+char Merchant::whatType(Interactable *i) { return 'M'; }
+
+
 void Merchant::Strike(Player *pc) {
   // merchant only attacks if aggressive
   if (merch_aggressive == true) pc->beStruckBy(this);
@@ -12,6 +15,6 @@ void Merchant::Strike(Player *pc) {
 void Merchant::beStruckBy(Player *pc) {
   const int dmg = pc->getAtk();
   damaged(dmg);
-  if (this->isDead() == true) pc->autoLoot();
+  if (this->checkDead() == true) pc->autoLoot();
   merch_aggressive
 }
