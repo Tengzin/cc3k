@@ -16,7 +16,7 @@ std::vector<vector<Tile> room;
 // (7,4) (7,29)
 // Room 2 : a
 // (4,40) (4,62)
-// (7,40) (7,63)
+// (7,40) (7,62)
 // Room 2 : b //6
 // (8,61) (8,77)
 // (13,61) (13,77)
@@ -40,7 +40,57 @@ int RandomNumber(n){
 	return randNum;
 }
 
-
+void whichRoom(Subject &mytile) {
+	Info myInfo = mytile.getInfo();
+	int r = myInfo.r;
+	int c = myInfo.c;
+	if ( 4<= r && r <= 7) {
+		if (4<= c && c<=29) {
+			r1.push_back(mytile);
+		}
+		if (40<= c && c<=62) {
+			r2.push_back(mytile);
+		}
+	}
+	if ( 6<= r && r <= 7) {
+		if (63<= c && c<=70) {
+			r2.push_back(mytile);
+		}
+	}
+	if (r==7) {
+		if (72<=c && c <=73) {
+			r2.push_back(mytile);
+		}
+	}
+	if ( 8<= r && r <= 13) {
+		if (62<= c && c<=76) {
+			r2.push_back(mytile);
+		}
+	}
+	//the box in themiddle is below
+	if ( 11<= r && r <= 13) {
+		if (39<= c && c<=50) {
+			r3.push_back(mytile);
+		}
+	}
+	//left and downward
+	if ( 16<= r && r <= 22) {
+		if (5<= c && c<=25) {
+			r4.push_back(mytile);
+		}
+	}
+	//right and downward
+	if ( 17<= r && r <= 19) {
+		if (66<= c && c<=76) {
+			r5.push_back(mytile);
+		}
+	}
+	if ( 20<= r && r <= 22) {
+		if (38<= c && c<=76) {
+			r5.push_back(mytile);
+		}
+	}
+}
 // void roords (int &room, int &x, int &y) {
 // 	room = RandomNumber(7);
 // 	Coords p = v[room-1];
@@ -65,31 +115,37 @@ mapLayout::init() {
     while (iss >> noskipws >>c) {
       if (c=='_') {
 				Tile mytile(false, true, false, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
       if (c=='|') {
 				Tile mytile(false, true, false, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
       if (c == '+') {
 				Tile mytile(true, false, true, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
       if (c == '.') {
 				Tile mytile(false, false, true, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
       if (c == '#') {
 				Tile mytile(true, false, false, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
       if (c == ' ') {
 				Tile mytile(false, false, false, width, height);
+				whichRoom(&mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
@@ -180,7 +236,7 @@ void mapLayout::placeInteractables() {
 		}
 		int type = RandomNumber(6);		//which potion
 		Info potloc = room[chamb-1][loc-1].getInfo();
-		Info potInfo = {...};//construct the type-th potion
+		Info potInfo = {,,,};//construct the type-th potion
 		layout[potloc.r][potloc.c].change(potInfo);
 	}
 	for (int j = 0; j < goldLimit; ++j) {					//GOLD
@@ -283,6 +339,7 @@ void mapLayout::move(string s) {
 	}
 		Info currTile = layout[PC_r][PC_c].getInfo();
 		Info nextTile = layout[PC_r+x][PC_c+y].getInfo();
+
 		if (nextTile.isStep) {
 			layout[PC_r+x][PC_c+y].change(currTile);
 			layout[PC_r][PC_c].change(nextTile);

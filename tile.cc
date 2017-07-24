@@ -15,6 +15,7 @@ void Tile::change(Info target) {
   this->isStep = target.isStep;
   this->inter = target.I;
   this.notifyObservers(SubscriptionType::All);
+  this.notifyObservers(SubscriptionType::Interactable);
 }
 
 Tile::Tile(bool passage, bool isWall, bool isStepable, int r, int c) :

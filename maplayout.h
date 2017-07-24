@@ -23,10 +23,10 @@ class mapLayout {
   //declare the coordinate structure here
   public:
   void init (); //initalise the floor.
-  //void placeInteractables(); //
+  void placeInteractables(); //
   void move (string s);
   //void toggleStep();
-  friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md); 
+  friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md);
 };
 
 #endif
