@@ -7,7 +7,7 @@ Player::Player():
   Character{hp, atk, def, 0}, //must invoke superclass ctor
   def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
 */
-char Player::whatType(Player *pc) { return '@'; }
+char Player::whatType(Interactable *i) { return '@'; }
 
 int Player::getHP() { return hp; }
 int Player::getAtk() { return atk; }
@@ -32,13 +32,13 @@ const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
 
-void takePotion(Potion *p) {
-  String pot = p->getPotType();
+void Player::takePotion(Potion *p) {
+  string pot = p->getPotType();
   if (pot == "RH") { this->heal(10); }
-  else if (pot == "WA") { this = new WoundAtk(5, this); }
-  else if (pot == "BA") { this = new BoostAtk(5, this); }
-  else if (pot == "WD") { this = new WoundDef(5, this); }
-  else if (pot == "BD") { this = new BoostDef(5, this); }
+  else if (pot == "WA") { *this = new WoundAtk(5, this); }
+  else if (pot == "BA") { *this = new BoostAtk(5, this); }
+  else if (pot == "WD") { *this = new WoundDef(5, this); }
+  else if (pot == "BD") { *this = new BoostDef(5, this); }
   else {
     this->heal(-10);
     if (this->getHP() <= 0) this->setDead(true);

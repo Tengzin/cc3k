@@ -1,10 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+/*
 #include "character.h"
 #include "interactable.h"
 #include "enemy.h"
 #include "potion.h"
+*/
+#include "character.h"
+#include "interactable.h"
+#include "enemy.h"
+
+class Potion;
+
 
 class Player: public Character {
   const int def_hp;
