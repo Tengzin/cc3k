@@ -15,6 +15,7 @@ Info Tile::getInfo() const {
 void Tile::change(Info target) {
   this->isStep = target.isStep;
   this->inter = target.I;
+  this->coin = target.coin;
   this.notifyObservers(SubscriptionType::All);
   this.notifyObservers(SubscriptionType::Interactable);
 }

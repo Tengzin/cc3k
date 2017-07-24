@@ -36,14 +36,12 @@ int main() {
     string s;
     cin >> s;
     if (s == "q") break;
+    mapLayout l;
     else if (s == "s" || s == "d" || s == "v" || s == "g" || s == "t") {
-      // call character constructor or something
+      l.placeInteractables(s);
     }
     else continue;
 
-    // constructing the mapLayout and mapDisplay
-    mapLayout l;
-    l.init();
     // have to add all the enemies, potions, stairs, coins, and PC here
     cout << l << "Player character has spawned." << endl; // prints board and action at bottom of board
 
@@ -56,12 +54,12 @@ int main() {
       else if (s == "f") enemyMove = !enemyMove;
       else if (s == u) {
         cin >> dir;
-        l.attack(dir);
         if (dir == "q" || dir == "r") break;
         // take potion in dir direction
       }
       else if (s == a) {
         cin >> dir;
+        l.attack(dir);
         if (dir == "q" || dir == "r") break;
         // attack enemy in dir direction
       }
