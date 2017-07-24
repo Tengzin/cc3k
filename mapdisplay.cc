@@ -32,6 +32,8 @@ void mapDisplay::notify(Subject &whoNotified) {
   int c = myInfo.c;
   if (myInfo.I != nullptr) {
     //Get the character for the interactable and put it here.
+    //for test
+    display[r][j] = 'K'
   }
   else if (myInfo.coin > 0) {
     display[r][j] = myInfo.coin;
@@ -51,4 +53,4 @@ SubscriptionType mapDisplay::subType() {
   return SubscriptionType::All;
 }
 
-mapDisplay::~mapDisplay(); 
+mapDisplay::~mapDisplay();

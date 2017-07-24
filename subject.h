@@ -2,7 +2,7 @@
 #define _SUBJECT_H_
 #include <vector>
 #include "subscriptions.h"
-//struct Info;
+struct Info;
 class Observer;
 
 class Subject {
