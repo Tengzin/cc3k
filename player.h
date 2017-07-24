@@ -18,6 +18,7 @@ public:
   virtual void takePotion(Potion *p);
   virtual void autoLoot();
 
+  char whatType(Interactable *i) override;
 
   void resetStats(); //after a level is cleared, reset atk and def
 protected:

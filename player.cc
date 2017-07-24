@@ -7,6 +7,8 @@ Player::Player():
   Character{hp, atk, def, 0}, //must invoke superclass ctor
   def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
 */
+char Player::whatType(Player *pc) { return '@'; }
+
 int Player::getHP() { return hp; }
 int Player::getAtk() { return atk; }
 int Player::getDef() { return def; }
@@ -18,7 +20,7 @@ void Player::Strike(Enemy *e) {
 void Player::beStruckBy(Enemy *e) {
   const int dmg = e->getAtk();
   const int miss = RandomNumber(2);
-  
+
   if (e->isElf() == true) {
     const int miss_two = RandomNumber(2);
     if (miss_two == 1) { damaged(dmg); }
@@ -58,4 +60,6 @@ void Player::resetStats() {
 void autoLoot() {
   //use random functoin to generate 1 or 2
   // and add to gold immediately
+  const int loot = RandomNumber(2);
+  gold += loot;
 }

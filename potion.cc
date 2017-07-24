@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+char Potion::whatType(Interactable *i) { return 'P'; }
+
 void Potion::notify(Player *pc) {
   const int pot = RandomNumber(6);
   if (pot == 1) {
