@@ -43,4 +43,4 @@ void Potion::notify(Player *pc) {
     }
 }
 
-String Potion::getPotType() { return pot_type; }
+string Potion::getPotType() { return pot_type; }

@@ -3,7 +3,8 @@
 
 class Dragon: public Enemy {
 public:
-  Dragon();  
+  Dragon();
+  char whatType(Interactable *i) override;
 };
 
 #endif

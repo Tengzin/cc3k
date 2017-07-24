@@ -1,7 +1,9 @@
 #ifndef POTION_H
 #define POTION_H
 #include <string>
+#include "player.h"
 #include "maplayout.h"
+#include "interactable.h"
 
 // Potions: Should Use Decorator Pattern
 class Potion: public Interactable {
@@ -9,7 +11,7 @@ class Potion: public Interactable {
 public:
   char whatType(Interactable *i) override;
   void notify(Player *pc);
-  String getPotType();
+  string getPotType();
 };
 
 

@@ -5,7 +5,7 @@ void Character::setDead(bool dead) {
   isDead = dead;
 }
 
-bool Character::isDead() {
+bool Character::checkDead() {
   return isDead;
 }
 

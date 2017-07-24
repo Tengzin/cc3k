@@ -17,7 +17,7 @@ void Enemy::Strike(Player *pc) {
 void Enemy::beStruckBy(Player *pc) {
   const int dmg = pc->getAtk();
   damaged(dmg);
-  if (this->isDead() == true) pc->autoLoot();
+  if (this->checkDead() == true) pc->autoLoot();
 }
 
 void movement() { return true; }

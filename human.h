@@ -4,6 +4,8 @@
 class Human: public Enemy {
 public:
   Human();
+  char whatType(Interactable *i) override;
+
 };
 
 #endif
