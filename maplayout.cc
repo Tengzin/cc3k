@@ -10,7 +10,7 @@ std::vector<Tile> r2;
 std::vector<Tile> r3;
 std::vector<Tile> r4;
 std::vector<Tile> r5;
-std::vector<vector<Tile> room;
+std::vector<vector<Tile>> room;
 // Room 1 :
 // (4,4) (4,29)
 // (7,4) (7,29)
@@ -33,7 +33,7 @@ std::vector<vector<Tile> room;
 // (11,39) (11,50)
 // (13,39) (13,50)
 
-int RandomNumber(n){
+int RandomNumber(int n){
 	srand(time(0));
 	int randNum;
 	randNum = 1+(rand()%n);
