@@ -64,7 +64,9 @@ int main() {
         if (dir == "q" || dir == "r") break;
         // attack enemy in dir direction
       }
+      cout << l;
     }
+
     if (s == "q" || dir == "q") break;
     if (s == "r" || dir == "r") continue;
   }
