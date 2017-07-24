@@ -6,8 +6,10 @@
 #include "potion.h"
 #include "character.h"
 
+
 class Interactable {
 public:
+  virtual bool movement();
 };
 
 

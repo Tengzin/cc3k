@@ -2,3 +2,5 @@
 #include <algorithm>
 #include "player.h"
 #include "vampire.h"
+
+bool Interactable::movement() { return false; }

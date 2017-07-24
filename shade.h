@@ -3,7 +3,7 @@
 
 class Shade: public Player {
 public:
-  Shade(int hp, int atk, int def);
+  Shade();
 };
 
 #endif

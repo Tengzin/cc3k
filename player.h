@@ -7,7 +7,7 @@ class Player: public Character {
   const int def_def;
   int gold;
 public:
-  Player(int hp, int atk, int def);
+  //Player(int hp, int atk, int def);
   int getHP() override;
   int getAtk() override;
   int getDef() override;

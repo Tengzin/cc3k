@@ -4,7 +4,7 @@
 class Vampire: public Player {
   int lifesteal;
 public:
-  Vampire(int hp, int atk, int def, int lifesteal);
+  Vampire();
   void regen() override;
   void heal() override;
 };

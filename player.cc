@@ -1,10 +1,11 @@
 #include "player.h"
 
 // Player Class Methods
-Player::Player(int hp, int atk, int def):
+/*
+Player::Player():
   Character{hp, atk, def, 0}, //must invoke superclass ctor
   def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
-
+*/
 int Player::getHP() { return hp; }
 int Player::getAtk() { return atk; }
 int Player::getDef() { return def; }

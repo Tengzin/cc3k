@@ -1,8 +1,10 @@
 #include "enemy.h"
 
 // Enemy Class Methods
-Enemy::Enemy(int hp, int atk, int def):
-  Character{hp, atk, def, 0} {}
+Enemy::Enemy() {};
+int getHP() { return hp; }
+int getAtk() { return atk; }
+int getDef() { return def; }
 
 void Enemy::Strike(Player *pc) {
   pc->beStruckBy(this);
@@ -13,3 +15,5 @@ void Enemy::beStruckBy(Player *pc) {
   damaged(dmg);
   if (this->isDead() == true) pc->autoLoot();
 }
+
+void movement() { return true; }

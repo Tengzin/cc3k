@@ -26,6 +26,7 @@ class mapLayout {
   void placeInteractables(); //
   void move (string s);
   //void toggleStep();
+  void moveEnemies();  
   friend std::ostream &operator<<(std::ostream &out, const mapDisplay &md);
 };
 

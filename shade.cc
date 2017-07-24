@@ -1,4 +1,5 @@
 #include "shade.cc"
 
-Shade::Shade(int hp, int atk, int def):
-  Player(hp, atk, def) {}
+Shade::Shade():
+Character{125, 25, 25, 0}
+Player{125, 25, 25, 0} {}
