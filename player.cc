@@ -1,5 +1,6 @@
 #include "player.h"
 #include "maplayout.h"
+#include <algorithm>
 
 // Player Class Methods
 

@@ -1,7 +1,6 @@
 #include "human.h"
 
 Human::Human():
-Character{110, 15, 20, 0}
-Enemy{} {}
+Enemy{110, 15, 20} {}
 
 char Human::whatType(Interactable *i) { return 'H'; }

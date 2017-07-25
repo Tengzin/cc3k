@@ -3,8 +3,7 @@
 extern bool merch_aggressive;
 
 Merchant::Merchant():
-Character{30, 70, 5, 0}
-Enemy{} {}
+Enemy{ 30, 70, 5 } {}
 
 char Merchant::whatType(Interactable *i) { return 'M'; }
 

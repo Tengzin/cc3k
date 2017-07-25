@@ -1,8 +1,7 @@
 #include "goblin.h"
 
 Goblin::Goblin():
-Character{110, 15, 20, 0},
-Player{110, 15, 20, 0} {}
+Player{110, 15, 20} {}
 
 void Goblin::beStruckBy(Enemy *e) {
   const int dmg = e->getAtk();

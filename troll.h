@@ -1,7 +1,7 @@
 #ifndef TROLL_H
 #define TROLL_H
 
-#include "enemy.h"
+#include "player.h"
 
 class Troll: public Player {
 public:

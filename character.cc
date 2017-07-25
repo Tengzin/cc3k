@@ -1,6 +1,9 @@
 #include "character.h"
 #include <cmath>
 
+Character::Character(int hp, int atk, int def):
+hp{hp}, atk{atk}, def{def}, isDead{0} {}
+
 void Character::setDead(bool dead) {
   isDead = dead;
 }

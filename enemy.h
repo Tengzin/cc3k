@@ -12,7 +12,7 @@
 
 class Enemy: public Character {
 public:
-  Enemy();
+  Enemy(int hp, int atk, int def);
   void notify(Player *pc);
 
   virtual void Strike(Player *pc);
