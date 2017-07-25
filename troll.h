@@ -6,7 +6,9 @@
 class Troll: public Player {
 public:
   Troll();
+  ~Troll();
   void regen() override; //troll specific
 };
+
 
 #endif

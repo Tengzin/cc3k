@@ -11,8 +11,6 @@
 
 using std::string;
 
-// Player Class Methods
-
 int RandomNumberP(int n) {
 	srand(time(0));
 	int randNum;
@@ -20,10 +18,14 @@ int RandomNumberP(int n) {
 	return randNum;
 }
 
+Player::Player() {}
+
 Player::Player(int hp, int atk, int def):
 Character{hp, atk, def},
 def_hp{hp}, def_atk{atk}, def_def{def},
 gold{0} {}
+
+Player::~Player() {}
 
 char Player::whatType(Interactable *i) { return '@'; }
 

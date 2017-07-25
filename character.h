@@ -10,6 +10,7 @@ protected:
   int def;
   bool isDead;
 public:
+	Character();
   Character(int hp, int atk, int def);
 	virtual int getHP() { return hp; }
 	virtual int getAtk() { return atk; }

@@ -1,5 +1,6 @@
 #include "merchant.h"
 #include "player.h"
+#include "character.h"
 
 extern bool merch_aggressive;
 
@@ -8,7 +9,6 @@ Enemy{ 30, 70, 5 } {}
 
 char Merchant::whatType(Interactable *i) { return 'M'; }
 
-
 void Merchant::Strike(Player *pc) {
   // merchant only attacks if aggressive
   if (merch_aggressive == true) pc->beStruckBy(this);
@@ -16,7 +16,7 @@ void Merchant::Strike(Player *pc) {
 
 void Merchant::beStruckBy(Player *pc) {
   const int dmg = pc->getAtk();
-  damaged(dmg);
+  this->damaged(dmg);
   merch_aggressive = true;
   if (this->checkDead() == true) pc->autoLoot();
 }

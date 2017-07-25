@@ -14,9 +14,9 @@
 class Potion;
 
 class Player: public Character {
-  const int def_hp;
-  const int def_atk;
-  const int def_def;  
+  int def_hp;
+  int def_atk;
+  int def_def;  
 public:
   Player();
   Player(int hp, int atk, int def);
