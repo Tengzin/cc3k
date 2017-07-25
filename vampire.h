@@ -5,8 +5,8 @@ class Vampire: public Player {
   int lifesteal;
 public:
   Vampire();
-  void regen() override;
-  void heal() override;
+  void heal(int hp_gain) override;
+  void Strike(Enemy *e) override;
 };
 
 #endif

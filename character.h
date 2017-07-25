@@ -10,12 +10,14 @@ protected:
   int def;
   bool isDead;
 public:
-  virtual int getHP() = 0;
-  virtual int getAtk() = 0;
-  virtual int getDef() = 0;
-  bool damaged();
+	virtual int getHP() { return hp; }
+	virtual int getAtk() { return atk; }
+	virtual int getDef() {
+		return def;
+	}
+  void damaged(int dmg);
   void setDead(bool dead);
-  void checkDead(bool dead);
+  bool checkDead();
 };
 
 #endif
