@@ -21,7 +21,7 @@ void Tile::change(Info target) {
 }
 
 Tile::Tile(bool passage, bool isWall, bool isStep, int r, int c) :
-	passage(passage), isWall(isWall), isStep(isStep), r(r), c(c) {}
+	r(r), c(c), passage(passage), isWall(isWall), isStep(isStep) {}
 
 void Tile::notify(Subject &whoNotified) {
 	Info myInfo = whoNotified.getInfo();

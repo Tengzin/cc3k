@@ -1,8 +1,7 @@
 #include "orc.h"
 
 Orc::Orc():
-Character{180, 30, 25, 0}
-Enemy{} {}
+	Enemy{ 180, 30, 25 } {}
 
 bool Orc::isOrc() { return true; }
 
