@@ -2,7 +2,6 @@
 #define MERCHANT_H
 
 #include "enemy.h"
-#include "interactable.h"
 
 class Merchant: public Enemy {
 public:

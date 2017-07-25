@@ -1,7 +1,7 @@
 #include "dragon.h"
+#include "player.h"
 
 Dragon::Dragon():
-Character{150, 20, 20, 0}
-Enemy{} {}
+Enemy{150, 20, 20} {}
 
 char Dragon::whatType(Interactable *i) { return 'D'; };

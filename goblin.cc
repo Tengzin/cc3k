@@ -1,12 +1,11 @@
 #include "goblin.h"
 
 Goblin::Goblin():
-Character{110, 15, 20, 0},
-Player{110, 15, 20, 0} {}
+Player{110, 15, 20} {}
 
 void Goblin::beStruckBy(Enemy *e) {
   const int dmg = e->getAtk();
-  int multi = 1;
+  float multi = 1;
 
   if (e->isElf() == true) {
     const int miss_two = RandomNumber(2);

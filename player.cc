@@ -1,12 +1,30 @@
 #include "player.h"
-#include "maplayout.h"
+#include "potion.h"
+#include "woundatk.h"
+#include "wounddef.h"
+#include "boostatk.h"
+#include "boostdef.h"
+#include <algorithm>
+#include <ctime>
+#include <cstdlib>
+#include <string>
+
+using std::string;
 
 // Player Class Methods
-/*
-Player::Player():
-  Character{hp, atk, def, 0}, //must invoke superclass ctor
-  def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
-*/
+
+int RandomNumber(int n) {
+	srand(time(0));
+	int randNum;
+	randNum = 1 + (rand() % n);
+	return randNum;
+}
+
+Player::Player(int hp, int atk, int def):
+Character{hp, atk, def},
+def_hp{hp}, def_atk{atk}, def_def{def},
+gold{0} {}
+
 char Player::whatType(Interactable *i) { return '@'; }
 
 int Player::getHP() { return hp; }
@@ -31,6 +49,7 @@ void Player::beStruckBy(Enemy *e) {
 const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
+/*
 
 void Player::takePotion(Potion *p) {
   string pot = p->getPotType();
@@ -44,6 +63,7 @@ void Player::takePotion(Potion *p) {
     if (this->getHP() <= 0) this->setDead(true);
   }
 } //generate and decorate player with potion
+*/
 
 void Player::heal(int hp_gain) {
   const int max = this->getDefHP(); //how much the player started with
@@ -58,7 +78,7 @@ void Player::resetStats() {
 }
 
 void autoLoot() {
-  //use random functoin to generate 1 or 2
+  //use random function to generate 1 or 2
   // and add to gold immediately
   const int loot = RandomNumber(2);
   gold += loot;

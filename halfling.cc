@@ -1,9 +1,9 @@
 #include "halfling.h"
 #include "maplayout.h"
+#include "player.h"
 
 Halfling::Halfling():
-Character{100, 15, 20, 0}
-Enemy{} {}
+Enemy{ 100, 15, 20 } {}
 
 char Halfling::whatType(Interactable *i) { return 'L'; }
 

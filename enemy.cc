@@ -1,7 +1,9 @@
 #include "enemy.h"
+#include "player.h"
 
 // Enemy Class Methods
-Enemy::Enemy() {};
+Enemy::Enemy(int hp, int atk, int def):
+	Character{ hp, atk, def } {};
 
 void Enemy::notify(Player *pc) {
   this->Strike(pc);

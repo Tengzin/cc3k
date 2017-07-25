@@ -1,8 +1,8 @@
 #include "elf.h"
+#include "player.h"
 
 Elf::Elf():
-Character{140, 30, 10, 0}
-Enemy{} {}
+Enemy{140, 30, 10} {}
 
 bool Elf::isElf() { return true; }
 
