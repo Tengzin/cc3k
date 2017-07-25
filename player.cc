@@ -2,11 +2,12 @@
 #include "maplayout.h"
 
 // Player Class Methods
-/*
-Player::Player():
-  Character{hp, atk, def, 0}, //must invoke superclass ctor
-  def_hp {hp} def_atk {atk}, def_def {def}, gold{0} {}
-*/
+
+Player::Player(int hp, int atk, int def):
+Character{hp, atk, def},
+def_hp{hp}, def_atk{atk}, def_def{def},
+gold{0} {}
+
 char Player::whatType(Interactable *i) { return '@'; }
 
 int Player::getHP() { return hp; }
@@ -58,7 +59,7 @@ void Player::resetStats() {
 }
 
 void autoLoot() {
-  //use random functoin to generate 1 or 2
+  //use random function to generate 1 or 2
   // and add to gold immediately
   const int loot = RandomNumber(2);
   gold += loot;

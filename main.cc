@@ -7,6 +7,22 @@
 #include "map.h"
 #include "mapdisplay.h"
 #include "maplayout.h"
+#include "character.h"
+#include "player.h"
+#include "dragon.h"
+#include "drow.h"
+#include "elf.h"
+#include "dwarf.h"
+#include "goblin.h"
+#include "halfling.h"
+#include "human.h"
+#include "merchant.h"
+#include "orc.h"
+#include "shade.h"
+#include "troll.h"
+#include "vampire.h"
+#include "potion.h"
+
 using namespace std;
 
 //Global variables

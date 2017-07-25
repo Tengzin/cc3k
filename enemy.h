@@ -2,7 +2,6 @@
 #define ENEMY_H
 
 #include "character.h"
-#include "player.h"
 
 /*
 #include "interactable.h"

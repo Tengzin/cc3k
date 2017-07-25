@@ -17,6 +17,6 @@ void Merchant::Strike(Player *pc) {
 void Merchant::beStruckBy(Player *pc) {
   const int dmg = pc->getAtk();
   damaged(dmg);
+  merch_aggressive = true;
   if (this->checkDead() == true) pc->autoLoot();
-  merch_aggressive
 }
