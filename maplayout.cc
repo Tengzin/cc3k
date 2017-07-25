@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace std;
 //PC,stairway,potions,gold,enemies
-int PC_r,PC_c;
+int PC_r,PC_c,PC_gold;
 int stair_r,stair_y;
 std::vector<Tile> r1;
 std::vector<Tile> r2;
@@ -11,27 +11,6 @@ std::vector<Tile> r3;
 std::vector<Tile> r4;
 std::vector<Tile> r5;
 std::vector<vector<Tile>> room;
-// Room 1 :
-// (4,4) (4,29)
-// (7,4) (7,29)
-// Room 2 : a
-// (4,40) (4,62)
-// (7,40) (7,62)
-// Room 2 : b //6
-// (8,61) (8,77)
-// (13,61) (13,77)
-// Room 3 : a
-// (17,66) (17,76)
-// (19,66) (17,76)
-// Room 3 : b //7
-// (20,38) (20,76)
-// (22,38) (22,76)
-// Room 4
-// (16,5) (16,25)
-// (22,5) (22,25)
-// Room 5
-// (11,39) (11,50)
-// (13,39) (13,50)
 
 int RandomNumber(int n){
 	srand(time(0));
@@ -98,45 +77,45 @@ mapLayout::mapLayout() {
 	ifstream layoutFile ("layout.txt");
 	//just in case guards.
 	string s;
-	int height = 0;
+	//int height = 0;
 	while(getline(layoutFile,s)) {
 		istringstream iss{s};
 		char c;
-		int width = 0;
+		//int width = 0;
 		vector <Tile> row;
 		while (iss >> noskipws >>c) {
-			if (c=='_') {
-				Tile mytile(false, true, false, width, height);
+			if (c=='-') {
+				Tile mytile(false, true, false, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 			if (c=='|') {
-				Tile mytile(false, true, false, width, height);
+				Tile mytile(false, true, false, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 			if (c == '+') {
-				Tile mytile(true, false, true, width, height);
+				Tile mytile(true, false, true, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 			if (c == '.') {
-				Tile mytile(false, false, true, width, height);
+				Tile mytile(false, false, true, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 			if (c == '#') {
-				Tile mytile(true, false, false, width, height);
+				Tile mytile(true, false, false, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 			if (c == ' ') {
-				Tile mytile(false, false, false, width, height);
+				Tile mytile(false, false, false, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
@@ -149,8 +128,8 @@ mapLayout::mapLayout() {
 	room.push_back(r3);
 	room.push_back(r4);
 	room.push_back(r5);
-	for(int j = 0; j < 25; ++j) {
-		for(int i = 0; i < 79; ++i) {
+	for(int i = 0; i < 25; ++i) {
+		for(int j = 0; j < 79; ++j) {
 					// corners
 			if (i - 1 >= 0 && j - 1 >= 0) {
 				Tile *nt = &layout[i-1][j-1];
@@ -469,4 +448,28 @@ void mapLayout::attack (string s) {
 	Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
 	Info playerTile = layout[PC_r][PC_r].getInfo();
 	playerTile.I->strike(enemyTile.I);
+}
+
+void mapLayout::take (string s) {
+        int x = 0;
+        int y = 0;
+        if (s == "no") --r;
+        if (s == "so") ++r;
+        if (s == "we") --c;
+        if (s == "ea") ++c;
+        if (s == "ne") {
+                ++c; --r;
+        }
+        if (s == "se") {
+                ++c; ++r;
+        }
+        if (s == "sw") {
+                --c; ++r;
+        }
+        if (s == "nw") {
+                --c; --r;
+        }
+        Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
+        Info playerTile = layout[PC_r][PC_c].getInfo();
+        playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions.
 }
