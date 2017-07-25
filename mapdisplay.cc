@@ -35,7 +35,7 @@ void mapDisplay::notify(Subject &whoNotified) {
   if (myInfo.I != nullptr) {
     //Get the character for the interactable and put it here.
     //for test
-    display[r][j] = 'K'
+    display[r][j] = whatType(myInfo.I);
   }
   else if (myInfo.coin > 0) {
     display[r][j] = myInfo.coin;
