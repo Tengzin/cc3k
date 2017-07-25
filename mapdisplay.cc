@@ -1,4 +1,6 @@
 #include "mapdisplay.h"
+#include "tile.h"
+#include "info.h"
 using namespace std;
 
 mapDisplay::mapDisplay() {
@@ -39,18 +41,18 @@ void mapDisplay::notify(Subject &whoNotified) {
     display[r][j] = myInfo.coin;
   }
   else if (myInfo.isPassage) {
-    display[r][j] = '#'
+    display[r][j] = '#';
   }
   else if (myInfo.isStep && myInfo.isWall) {
-    display[r][j] = '+'
+    display[r][j] = '+';
   }
   else if (myInfo.isStep) {
-    display[r][j] = '.'
+    display[r][j] = '.';
   }
 }
 
-SubscriptionType mapDisplay::subType() {
+SubscriptionType mapDisplay::subType() const{
   return SubscriptionType::All;
 }
 
-mapDisplay::~mapDisplay();
+mapDisplay::~mapDisplay() {}

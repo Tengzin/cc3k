@@ -2,6 +2,7 @@
 #define _SUBJECT_H_
 #include <vector>
 #include "subscriptions.h"
+#include "info.h"
 struct Info;
 class Observer;
 
