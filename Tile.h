@@ -17,7 +17,7 @@ class Tile : public Subject, public Observer {  //+this inherits from Subject
   void change(Info target);
   Tile(bool passage, bool isWall, bool isStep, int r, int c);
   void notify(Subject &whoNotified) override;
-  SubscriptionType subType() override; //Virtual? //If interactable return that else return something else;
+  SubscriptionType subType() const override; //Virtual? //If interactable return that else return something else;
   ~Tile();
 
 };

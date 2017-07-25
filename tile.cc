@@ -24,8 +24,9 @@ Tile::Tile(bool passage, bool isWall, bool isStep, int r, int c) :
   passage(passage), isWall(isWall), isStep(isStep), r(r), c(c) {}
 
 void Tile::notify(Subject &whoNotified) {
-  Info myInfo = whoNotified.getinfo();
-  this->inter.notify(myInfo.I);
+  Info myInfo = whoNotified.getInfo();
+//  this->inter.notify(myInfo.I);
+  this->notify(myInfo.I);
 }
 
 SubscriptionType Tile::subType() {

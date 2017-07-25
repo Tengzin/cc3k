@@ -5,7 +5,7 @@
 
 class Halfling: public Enemy {
 public:
-  Halfing();
+  Halfling();
   void beStruckBy(Player *pc) override;
   char whatType(Interactable *i) override;
 };

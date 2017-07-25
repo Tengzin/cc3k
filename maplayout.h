@@ -21,10 +21,10 @@ class mapLayout {
   //const int potionLimit = 6; //
   //const int enemyLimit = 20; //to check whether we've created enough enemies;
   //declare the coordinate structure here
-  public:  
+  public:
   mapLayout();
   ~mapLayout();
-  void placeInteractables();
+  void placeInteractables(string charType);
   void move (string s);
   void moveEnemies();
   void attack(string s);
