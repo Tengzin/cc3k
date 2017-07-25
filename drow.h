@@ -7,7 +7,7 @@ class Drow: public Player {
 public:
   Drow();
   void beStruckBy(Enemy *e) override;
-  void takePotion(Potion *p) override;
+  void takePotion(Potion *p, Player *pc) override;
 };
 
 #endif

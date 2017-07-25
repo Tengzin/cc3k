@@ -16,8 +16,7 @@ class Potion;
 class Player: public Character {
   const int def_hp;
   const int def_atk;
-  const int def_def;
-  int gold;
+  const int def_def;  
 public:
   Player(int hp, int atk, int def);
 
@@ -28,13 +27,14 @@ public:
   virtual void Strike(Enemy *e);
   virtual void beStruckBy(Enemy *e);
 
-  virtual void takePotion(Potion *p);
+  void takePotion(Potion *p, Player *pc) override;
   virtual void autoLoot();
 
   char whatType(Interactable *i) override;
 
   void resetStats(); //after a level is cleared, reset atk and def
 protected:
+  int gold;
   virtual ~Player() = 0;
   virtual void heal(int hp_gain);
   void setAtk(int new_atk);

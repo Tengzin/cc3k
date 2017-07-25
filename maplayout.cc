@@ -1,5 +1,20 @@
 #include "maplayout.h"
 #include "tile.h"
+#include "potion.h"
+#include "dragon.h"
+#include "drow.h"
+#include "elf.h"
+#include "dwarf.h"
+#include "goblin.h"
+#include "halfling.h"
+#include "human.h"
+#include "merchant.h"
+#include "orc.h"
+#include "shade.h"
+#include "troll.h"
+#include "vampire.h"
+#include "potion.h"
+
 #include <sstream>
 using namespace std;
 //PC,stairway,potions,gold,enemies
@@ -447,7 +462,7 @@ void mapLayout::attack (string s) {
 	}
 	Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
 	Info playerTile = layout[PC_r][PC_r].getInfo();
-	playerTile.I->strike(enemyTile.I);
+	playerTile.I->Strike(enemyTile.I);
 }
 
 void mapLayout::take (string s) {
@@ -471,5 +486,5 @@ void mapLayout::take (string s) {
         }
         Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
         Info playerTile = layout[PC_r][PC_c].getInfo();
-        playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions.
+        playerTile.I->takePotion(potionTile.I, playerTile.I); //add what happens if a null ptr is passed to these functions.
 }

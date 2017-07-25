@@ -20,6 +20,7 @@ public:
   virtual bool isOrc() { return false; }
   virtual bool isElf() { return false; }
   virtual bool isDwarf() { return false; }
+  void takePotion(Potion *p, Player *pc) override {}
 
   bool movement() override;
 };

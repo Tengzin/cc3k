@@ -1,4 +1,16 @@
 #include "goblin.h"
+#include <ctime>
+#include <cstdlib>
+#include <string>
+
+using std::string;
+
+int RandomNumber(int n) {
+	srand(time(0));
+	int randNum;
+	randNum = 1 + (rand() % n);
+	return randNum;
+}
 
 Goblin::Goblin():
 Player{110, 15, 20} {}

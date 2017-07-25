@@ -49,21 +49,20 @@ void Player::beStruckBy(Enemy *e) {
 const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
-/*
 
-void Player::takePotion(Potion *p) {
+void Player::takePotion(Potion *p, Player *pc) {
   string pot = p->getPotType();
-  if (pot == "RH") { this->heal(10); }
-  else if (pot == "WA") { *this = new WoundAtk(5, this); }
-  else if (pot == "BA") { *this = new BoostAtk(5, this); }
-  else if (pot == "WD") { *this = new WoundDef(5, this); }
-  else if (pot == "BD") { *this = new BoostDef(5, this); }
+  if (pot == "RH") { pc->heal(10); }
+  else if (pot == "WA") { pc = new WoundAtk(5, pc); }
+  else if (pot == "BA") { pc = new BoostAtk(5, pc); }
+  else if (pot == "WD") { pc = new WoundDef(5, pc); }
+  else if (pot == "BD") { pc = new BoostDef(5, pc); }
   else {
     this->heal(-10);
     if (this->getHP() <= 0) this->setDead(true);
   }
 } //generate and decorate player with potion
-*/
+
 
 void Player::heal(int hp_gain) {
   const int max = this->getDefHP(); //how much the player started with
@@ -77,7 +76,7 @@ void Player::resetStats() {
   setDef(this->getDefDef());
 }
 
-void autoLoot() {
+void Player::autoLoot() {
   //use random function to generate 1 or 2
   // and add to gold immediately
   const int loot = RandomNumber(2);
