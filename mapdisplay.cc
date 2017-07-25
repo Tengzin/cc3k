@@ -1,6 +1,7 @@
 #include "mapdisplay.h"
 #include "tile.h"
 #include "info.h"
+#include "interactable.h"
 using namespace std;
 
 mapDisplay::mapDisplay() {
@@ -35,19 +36,19 @@ void mapDisplay::notify(Subject &whoNotified) {
   if (myInfo.I != nullptr) {
     //Get the character for the interactable and put it here.
     //for test
-    display[r][j] = whatType(myInfo.I);
+    display[r][c] = myInfo.I->Interactable::whatType(myInfo.I);
   }
   else if (myInfo.coin > 0) {
-    display[r][j] = myInfo.coin;
+    display[r][c] = myInfo.coin;
   }
   else if (myInfo.isPassage) {
-    display[r][j] = '#';
+    display[r][c] = '#';
   }
   else if (myInfo.isStep && myInfo.isWall) {
-    display[r][j] = '+';
+    display[r][c] = '+';
   }
   else if (myInfo.isStep) {
-    display[r][j] = '.';
+    display[r][c] = '.';
   }
 }
 

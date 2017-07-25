@@ -236,7 +236,7 @@ void mapLayout::placeInteractables(string charType) {
 		stair_n = RandomNumber(5);
 	}
 	x = RandomNumber(room[stair_n-1].size());
-	Info stairLoc = room[stair_n-1][x-1].getinfo();
+	Info stairLoc = room[stair_n-1][x-1].getInfo();
 	stair_r = stairLoc.r;
 	stair_c = stairLoc.c;
 	//Done with Stairs (add stair location checker in move)

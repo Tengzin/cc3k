@@ -10,6 +10,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <fstream>
+#include "interactable.h"
 
 
 class mapLayout {
