@@ -7,7 +7,7 @@
 
 using std::string;
 
-int RandomNumber(int n) {
+int RandomNumberH(int n) {
 	srand(time(0));
 	int randNum;
 	randNum = 1 + (rand() % n);
@@ -21,7 +21,7 @@ char Halfling::whatType(Interactable *i) { return 'L'; }
 
 void Halfling::beStruckBy(Player *pc) {
   // 50% chance for this to happen, use random function
-  const int miss = RandomNumber(2);
+  const int miss = RandomNumberH(2);
   if (miss == 1) {
     const int dmg = pc->getAtk();
     damaged(dmg);

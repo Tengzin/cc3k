@@ -8,7 +8,7 @@ using std::string;
 
 // Player Class Methods
 
-int RandomNumber(int n) {
+int RandomNumberPot(int n) {
 	srand(time(0));
 	int randNum;
 	randNum = 1 + (rand() % n);
@@ -28,7 +28,7 @@ extern bool WD_checked;
 char Potion::whatType(Interactable *i) { return 'P'; }
 
 void Potion::notify(Player *pc) {
-  const int pot = RandomNumber(6);
+  const int pot = RandomNumberPot(6);
   if (pot == 1) {
     pot_type = "RH";
     if (RH_checked == true) {

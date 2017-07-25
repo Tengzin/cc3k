@@ -13,7 +13,7 @@ using std::string;
 
 // Player Class Methods
 
-int RandomNumber(int n) {
+int RandomNumberP(int n) {
 	srand(time(0));
 	int randNum;
 	randNum = 1 + (rand() % n);
@@ -37,10 +37,10 @@ void Player::Strike(Enemy *e) {
 
 void Player::beStruckBy(Enemy *e) {
   const int dmg = e->getAtk();
-  const int miss = RandomNumber(2);
+  const int miss = RandomNumberP(2);
 
   if (e->isElf() == true) {
-    const int miss_two = RandomNumber(2);
+    const int miss_two = RandomNumberP(2);
     if (miss_two == 1) { damaged(dmg); }
   }
   if (miss == 1) { damaged(dmg); }
@@ -79,6 +79,6 @@ void Player::resetStats() {
 void Player::autoLoot() {
   //use random function to generate 1 or 2
   // and add to gold immediately
-  const int loot = RandomNumber(2);
+  const int loot = RandomNumberP(2);
   gold += loot;
 }

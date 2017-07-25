@@ -5,7 +5,7 @@
 
 using std::string;
 
-int RandomNumber(int n) {
+int RandomNumberG(int n) {
 	srand(time(0));
 	int randNum;
 	randNum = 1 + (rand() % n);
@@ -20,17 +20,17 @@ void Goblin::beStruckBy(Enemy *e) {
   float multi = 1;
 
   if (e->isElf() == true) {
-    const int miss_two = RandomNumber(2);
+    const int miss_two = RandomNumberG(2);
     if (miss_two == 1) { damaged(dmg); }
   }
 
   else if (e->isOrc() == true) multi = 1.5;
-  const int miss = RandomNumber(2);
+  const int miss = RandomNumberG(2);
   if (miss == 1) { damaged(dmg * multi); }
 }
 
 void Goblin::autoLoot() {
   gold += 5; // additional gold from killing
-  const int loot = RandomNumber(2);
+  const int loot = RandomNumberG(2);
   gold += loot;
 }
