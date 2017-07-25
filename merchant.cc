@@ -1,5 +1,7 @@
 #include "merchant.h"
 
+extern bool merch_aggressive;
+
 Merchant::Merchant():
 Character{30, 70, 5, 0}
 Enemy{} {}

@@ -20,6 +20,7 @@ public:
   virtual void beStruckBy(Player *pc);
   virtual bool isOrc() { return false; }
   virtual bool isElf() { return false; }
+  virtual bool isDwarf() { return false; }
 
   bool movement() override;
 };

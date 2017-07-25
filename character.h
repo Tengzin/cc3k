@@ -15,7 +15,7 @@ public:
 	virtual int getDef() {
 		return def;
 	}
-  bool damaged(int dmg);
+  void damaged(int dmg);
   void setDead(bool dead);
   bool checkDead();
 };
