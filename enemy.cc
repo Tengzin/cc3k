@@ -1,4 +1,5 @@
 #include "enemy.h"
+#include "player.h"
 
 // Enemy Class Methods
 Enemy::Enemy(int hp, int atk, int def):

@@ -1,4 +1,5 @@
 #include "merchant.h"
+#include "player.h"
 
 extern bool merch_aggressive;
 

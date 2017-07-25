@@ -1,8 +1,24 @@
 #include "player.h"
-#include "maplayout.h"
+#include "potion.h"
+#include "woundatk.h"
+#include "wounddef.h"
+#include "boostatk.h"
+#include "boostdef.h"
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
+#include <string>
+
+using std::string;
 
 // Player Class Methods
+
+int RandomNumber(int n) {
+	srand(time(0));
+	int randNum;
+	randNum = 1 + (rand() % n);
+	return randNum;
+}
 
 Player::Player(int hp, int atk, int def):
 Character{hp, atk, def},
@@ -33,6 +49,7 @@ void Player::beStruckBy(Enemy *e) {
 const int Player::getDefHP() { return def_hp; }
 const int Player::getDefAtk() { return def_atk; }
 const int Player::getDefDef() { return def_def; }
+/*
 
 void Player::takePotion(Potion *p) {
   string pot = p->getPotType();
@@ -46,6 +63,7 @@ void Player::takePotion(Potion *p) {
     if (this->getHP() <= 0) this->setDead(true);
   }
 } //generate and decorate player with potion
+*/
 
 void Player::heal(int hp_gain) {
   const int max = this->getDefHP(); //how much the player started with

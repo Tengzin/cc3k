@@ -8,7 +8,7 @@
 #include "character.h"
 #include "player.h"
 */
-
+class Player;
 
 class Enemy: public Character {
 public:

@@ -11,6 +11,8 @@
 #include "interactable.h"
 #include "enemy.h"
 
+class Potion;
+
 class Player: public Character {
   const int def_hp;
   const int def_atk;

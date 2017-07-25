@@ -1,5 +1,6 @@
 #include "halfling.h"
 #include "maplayout.h"
+#include "player.h"
 
 Halfling::Halfling():
 Enemy{ 100, 15, 20 } {}

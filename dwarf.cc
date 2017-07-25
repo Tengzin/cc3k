@@ -1,4 +1,5 @@
 #include "dwarf.h"
+#include "player.h"
 
 Dwarf::Dwarf():
 Enemy{100, 20, 30} {}

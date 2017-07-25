@@ -1,4 +1,5 @@
 #include "elf.h"
+#include "player.h"
 
 Elf::Elf():
 Enemy{140, 30, 10} {}
