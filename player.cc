@@ -67,7 +67,7 @@ void Player::takePotion(Potion *p) {
 
 void Player::heal(int hp_gain) {
   const int max = this->getDefHP(); //how much the player started with
-  hp = std::min(max, this->getHP() + hp_gain)
+  hp = std::min(max, this->getHP() + hp_gain);
 }
 void Player::setAtk(int new_atk) { atk = new_atk; }
 void Player::setDef(int new_def) { def = new_def; }

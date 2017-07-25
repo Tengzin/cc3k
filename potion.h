@@ -1,6 +1,7 @@
 #ifndef POTION_H
 #define POTION_H
 #include <string>
+using std::string;
 
 #include "interactable.h"
 /*
@@ -8,6 +9,8 @@
 #include "maplayout.h"
 #include "interactable.h"
 */
+
+class Player;
 
 // Potions: Should Use Decorator Pattern
 class Potion: public Interactable {
