@@ -4,7 +4,7 @@
 #include <vector>
 
 //#include "interactable.h"
-#include "map.h"
+//#include "map.h"
 #include "mapdisplay.h"
 #include "maplayout.h"
 #include "character.h"
@@ -36,7 +36,7 @@ bool BD_checked = 0;
 bool PH_checked = 0;
 bool WA_checked = 0;
 bool WD_checked = 0;
-
+mapLayout l;
 int level = 1;
 bool enemyMove = true;      // if user types "r" it resets everything. I did continue (ie start over the while loop)
                             // if might be easier to put these variable in the while so they get reset
@@ -52,7 +52,6 @@ int main() {
     string s;
     cin >> s;
     if (s == "q") break;
-    mapLayout l;
     else if (s == "s" || s == "d" || s == "v" || s == "g" || s == "t") {
       l.placeInteractables(s);
     }
@@ -68,13 +67,13 @@ int main() {
       if (s == "q" || s == "r") break;
       else if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "ne" || s == "nw" || s == "se" || s == "sw") l.move(s);
       else if (s == "f") enemyMove = !enemyMove;
-      else if (s == u) {
+      else if (s == "u") {
         cin >> dir;
         l.take(dir);
         if (dir == "q" || dir == "r") break;
         // take potion in dir direction
       }
-      else if (s == a) {
+      else if (s == "a") {
         cin >> dir;
         l.attack(dir);
         if (dir == "q" || dir == "r") break;

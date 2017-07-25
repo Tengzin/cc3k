@@ -40,15 +40,6 @@ int RandomNumber(int n){
 	return randNum;
 }
 
-mapLayout::mapLayout() {
-	//Do nothing?
-}
-
-mapLayout::~mapLayout() {
-	delete this->md;
-	layout.clear();
-}
-
 void whichRoom(Subject &mytile) {
 	Info myInfo = mytile.getInfo();
 	int r = myInfo.r;
@@ -100,115 +91,114 @@ void whichRoom(Subject &mytile) {
 		}
 	}
 }
-// void roords (int &room, int &x, int &y) {
-// 	room = RandomNumber(7);
-// 	Coords p = v[room-1];
-// 	int width = p.rx-p.lx;
-// 	int height = p.by-p.ty;
-// 	x = x + RandomNumber(width);
-// 	y = y + RandomNumber(height);
-// }
 
-void mapLayout::init() {
-  mapDisplay *md = new mapDisplay;
-  this->md = md;
-  ifstream layoutFile ("layout.txt");
-  //just in case guards.
-  string s;
-  int height = 0;
-  while(getline(layoutFile,s)) {
-    istringstream iss{s};
-    char c;
-    int width = 0;
-    vector <Tile> row;
-    while (iss >> noskipws >>c) {
-      if (c=='_') {
+mapLayout::mapLayout() {
+	mapDisplay *md = new mapDisplay;
+	this->md = md;
+	ifstream layoutFile ("layout.txt");
+	//just in case guards.
+	string s;
+	int height = 0;
+	while(getline(layoutFile,s)) {
+		istringstream iss{s};
+		char c;
+		int width = 0;
+		vector <Tile> row;
+		while (iss >> noskipws >>c) {
+			if (c=='_') {
 				Tile mytile(false, true, false, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-      if (c=='|') {
+			if (c=='|') {
 				Tile mytile(false, true, false, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-      if (c == '+') {
+			if (c == '+') {
 				Tile mytile(true, false, true, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-      if (c == '.') {
+			if (c == '.') {
 				Tile mytile(false, false, true, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-      if (c == '#') {
+			if (c == '#') {
 				Tile mytile(true, false, false, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-      if (c == ' ') {
+			if (c == ' ') {
 				Tile mytile(false, false, false, width, height);
-				whichRoom(&mytile);
+				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
 		}
-    layout.push_back(row);
-  }
+		layout.push_back(row);
+	}
 	room.push_back(r1);
 	room.push_back(r2);
 	room.push_back(r3);
 	room.push_back(r4);
 	room.push_back(r5);
-  for(int j = 0; j < 25; ++j) {
-    for(int i = 0; i < 79; ++i) {
-          // corners
-      if (i - 1 >= 0 && j - 1 >= 0) {
-        Tile *nt = layout[i-1][j-1];
-        layout[i][j].attach(nt);
-      }
-      if (i + 1 < 79 && j - 1 >= 0) {
-        Tile *nt = layout[i+1][j-1];
-        layout[i][j].attach(nt);
-      }
-      if (i - 1 >= 0 && j + 1 < 25) {
-        Tile *nt = layout[i-1][j+1];
-        layout[i][j].attach(nt);
-      }
-      if (i + 1 < 79 && j + 1 < 25) {
-        Tile *nt = layout[i+1][j+1];
-        layout[i][j].attach(nt);
-      }
-          // corners
-          // north, south, east, west
-      if (j - 1 >= 0) {
-        Tile *nt = layout[i][j-1];
-        layout[i][j].attach(nt);
-      }
-      if (j + 1 < 25) {
-        Tile *nt = layout[i][j+1];
-        layout[i][j].attach(nt);
-      }
-      if (i - 1 >= 0) {
-        Tile *nt = layout[i-1][j];
-        layout[i][j].attach(nt);
-      }
-      if (i + 1 < 79) {
-        Tile *nt = layout[i+1][j];
-        layout[i][j].attach(nt);
-      }
-          // north, south, east, west
-    }
-  }
+	for(int j = 0; j < 25; ++j) {
+		for(int i = 0; i < 79; ++i) {
+					// corners
+			if (i - 1 >= 0 && j - 1 >= 0) {
+				Tile *nt = &layout[i-1][j-1];
+				layout[i][j].attach(nt);
+			}
+			if (i + 1 < 79 && j - 1 >= 0) {
+				Tile *nt = &layout[i+1][j-1];
+				layout[i][j].attach(nt);
+			}
+			if (i - 1 >= 0 && j + 1 < 25) {
+				Tile *nt = &layout[i-1][j+1];
+				layout[i][j].attach(nt);
+			}
+			if (i + 1 < 79 && j + 1 < 25) {
+				Tile *nt = &layout[i+1][j+1];
+				layout[i][j].attach(nt);
+			}
+					// corners
+					// north, south, east, west
+			if (j - 1 >= 0) {
+				Tile *nt = &layout[i][j-1];
+				layout[i][j].attach(nt);
+			}
+			if (j + 1 < 25) {
+				Tile *nt = &layout[i][j+1];
+				layout[i][j].attach(nt);
+			}
+			if (i - 1 >= 0) {
+				Tile *nt = &layout[i-1][j];
+				layout[i][j].attach(nt);
+			}
+			if (i + 1 < 79) {
+				Tile *nt = &layout[i+1][j];
+				layout[i][j].attach(nt);
+			}
+					// north, south, east, west
+		}
+	}
 }
 
-ostream &operator<<(ostream &out, const mapLayout &md) {
+mapLayout::~mapLayout() {
+	delete this->md;
+	layout.clear();
+}
+
+
+
+ostream &operator<<(ostream &out, const mapLayout &l) {
   out << *(l.md);
   return out;
 }
@@ -387,8 +377,8 @@ void mapLayout::placeInteractables(string charType) {
 
 
 void mapLayout::move(string s) {
-	int x = 0;
-	int y = 0;
+	int r = 0;
+	int c = 0;
 	if (s == "no") --r;
 	if (s == "so") ++r;
 	if (s == "we") --c;

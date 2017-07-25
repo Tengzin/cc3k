@@ -16,12 +16,12 @@ void Tile::change(Info target) {
   this->isStep = target.isStep;
   this->inter = target.I;
   this->coin = target.coin;
-  this.notifyObservers(SubscriptionType::All);
-  this.notifyObservers(SubscriptionType::Interactable);
+  this->notifyObservers(SubscriptionType::All);
+  this->notifyObservers(SubscriptionType::Interactable);
 }
 
-Tile::Tile(bool passage, bool isWall, bool isStepable, int r, int c) :
-  passage(passage), isWall(isWall), isStepable(isStepable), r(r), c(c) {}
+Tile::Tile(bool passage, bool isWall, bool isStep, int r, int c) :
+  passage(passage), isWall(isWall), isStep(isStep), r(r), c(c) {}
 
 void Tile::notify(Subject &whoNotified) {
   Info myInfo = whoNotified.getinfo();
