@@ -3,6 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+#include <iostream>
 
 using std::string;
 
@@ -28,6 +29,7 @@ extern bool WD_checked;
 char Potion::whatType(Interactable *i) { return 'P'; }
 
 void Potion::notify(Player *pc) {
+	cout << "You have encountered a potion!" << endl;
   const int pot = RandomNumberPot(6);
   if (pot == 1) {
     pot_type = "RH";

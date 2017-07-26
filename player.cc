@@ -8,6 +8,8 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+#include <sstream>
+#include <iostream>
 
 using std::string;
 
@@ -83,4 +85,12 @@ void Player::autoLoot() {
   // and add to gold immediately
   const int loot = RandomNumberP(2);
   gold += loot;
+}
+
+std::ostream &operator<<(std::ostream &out, const Player &pc) {
+	//out << "Gold:" << pc.gold << endl;
+	out << "HP:" << pc.hp << endl;
+	out << "ATK:" << pc.atk << endl;
+	out << "DEF:" << pc.def << endl;
+	return out;
 }

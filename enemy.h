@@ -13,7 +13,7 @@ class Player;
 class Enemy: public Character {
 public:
   Enemy(int hp, int atk, int def);
-  void notify(Player *pc);
+  void notify(Player *pc) override;
 
   virtual void Strike(Player *pc);
   virtual void beStruckBy(Player *pc);

@@ -16,25 +16,25 @@
 #include "potion.h"
 
 #include <sstream>
+#include <chrono>
+#include <thread>
+#include <ctime>
 using namespace std;
-//PC,stairway,potions,gold,enemies
-int PC_r,PC_c,PC_gold;
-int stair_r,stair_y;
-std::vector<Tile> r1;
-std::vector<Tile> r2;
-std::vector<Tile> r3;
-std::vector<Tile> r4;
-std::vector<Tile> r5;
-std::vector<vector<Tile>> room;
+using std::chrono::system_clock;
+int PC_r, PC_c;
+int PC_gold = 0;
+int stair_r, stair_c;
+extern bool gameFinished;
 
 int RandomNumber(int n) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(350));
 	srand(time(0));
 	int randNum;
 	randNum = 1 + (rand() % n);
 	return randNum;
 }
 
-void whichRoom(Tile mytile) {
+void mapLayout::whichRoom(Tile mytile) {
 	Info myInfo = mytile.getInfo();
 	int r = myInfo.r;
 	int c = myInfo.c;
@@ -90,53 +90,50 @@ mapLayout::mapLayout() {
 	mapDisplay *md = new mapDisplay;
 	this->md = md;
 	ifstream layoutFile("layout.txt");
-	//just in case guards.
+	if (layoutFile.fail()) {
+
+	}
 	string s;
-	//int height = 0;
 	while (getline(layoutFile, s)) {
 		istringstream iss{ s };
 		char c;
-		//int width = 0;
 		vector <Tile> row;
 		while (iss >> noskipws >> c) {
-			//if (width == 1 && height == 1) cout <<" I got here"<<endl;
 			if (c == '-') {
 				Tile mytile(false, true, false, layout.size(), row.size());
-				whichRoom(mytile);
-				//cout <<  layout.size() << ", " <<  row.size()<< endl;
+				//whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-			if (c == '|') {
+			else if (c == '|') {
 				Tile mytile(false, true, false, layout.size(), row.size());
-				whichRoom(mytile);
+				//whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-			if (c == '+') {
+			else if (c == '+') {
 				Tile mytile(true, false, true, layout.size(), row.size());
-				whichRoom(mytile);
+				//whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-			if (c == '.') {
+			else if (c == '.') {
 				Tile mytile(false, false, true, layout.size(), row.size());
 				whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-			if (c == '#') {
-				Tile mytile(true, false, false, layout.size(), row.size());
-				whichRoom(mytile);
+			else if (c == '#') {
+				Tile mytile(true, false, true, layout.size(), row.size());
+				//whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
 			}
-			if (c == ' ') {
+			else if (c == ' ') {
 				Tile mytile(false, false, false, layout.size(), row.size());
-				whichRoom(mytile);
+				//whichRoom(mytile);
 				mytile.attach(md);
 				row.push_back(mytile);
-				//cout << "we got a whitespace" << endl;                        
 			}
 		}
 		layout.push_back(row);
@@ -148,18 +145,14 @@ mapLayout::mapLayout() {
 	room.push_back(r5);
 	for (int i = 0; i < 25; ++i) {
 		for (int j = 0; j < 79; ++j) {
-			//cout << i << ", " << j << endl;               // corners
+			// corners
 			if (((i - 1) >= 0) && ((j - 1) >= 0)) {
 				Tile *nt = &layout[i - 1][j - 1];
 				layout[i][j].attach(nt);
 			}
 			if (((i + 1) < 25) && ((j - 1) >= 0)) {
 				Tile *nt1 = &layout[i + 1][j - 1];
-				//      cout << "one " << i+1 << ", " << j-1 << endl;
-				// Info myInfo = layout[i][j].getInfo();
-				//  cout << "myInfo " << myInfo.r << ", " <<myInfo.c<<endl;
 				layout[i][j].attach(nt1);
-				//      cout << "done" << endl;
 			}
 			if (((i - 1) >= 0) && ((j + 1) < 79)) {
 				Tile *nt2 = &layout[i - 1][j + 1];
@@ -167,12 +160,8 @@ mapLayout::mapLayout() {
 			}
 			if (((i + 1) < 25) && ((j + 1) < 79)) {
 				Tile *nt3 = &layout[i + 1][j + 1];
-
-				//cout << "two " << i+1 << ", " << j+1 << endl;
 				layout[i][j].attach(nt3);
-				//cout << "done two" << endl;
 			}
-			// corners
 			// north, south, east, west
 			if ((j - 1) >= 0) {
 				Tile *nt = &layout[i][j - 1];
@@ -190,7 +179,6 @@ mapLayout::mapLayout() {
 				Tile *nt = &layout[i + 1][j];
 				layout[i][j].attach(nt);
 			}
-			// north, south, east, west
 		}
 	}
 }
@@ -202,182 +190,307 @@ mapLayout::~mapLayout() {
 
 ostream &operator<<(ostream &out, const mapLayout &l) {
 	out << *(l.md);
+	Info myInfo = l.layout[PC_r][PC_c].getInfo();
+	Player *pc = dynamic_cast<Player*>(myInfo.I);
+	out << "Gold: " << PC_gold << endl;
+	out << *pc;
 	return out;
 }
-/*void mapLayout::placeInteractables(string charType) {
-//We first generate the PC
-int char_n = RandomNumber(5);
-int x = RandomNumber(room[char_n-1].size());
-Info charloc = room[char_n-1][x-1].getInfo();
-PC_r = charloc.r;
-PC_c = charloc.c;
-//make the character
-Interactable *inter;
-if (charType == "s") {
-Shade *s = new Shade();
-inter = s;
-}
-else if (charType == "d") {
-Drow *d = new Drow();
-inter = d;
-}
-else if (charType == "v") {
-Vampire *v = new Vampire();
-inter = v;
-}
-else if (charType == "g") {
-Goblin *g = new Goblin();
-inter = g;
-}
-else {
-Troll *t = new Troll();
-inter = t;
-}
-Info playerInfo = {0,0,false,false,false,0,inter};//Create struct for PC;
-layout[charLoc.r][charLoc.c].change(playerInfo);
-//DONE WITH PC
-//Now stairs
-int stair_n = RandomNumber(5);
-while (stair_n == char_n) {
-stair_n = RandomNumber(5);
-}
-x = RandomNumber(room[stair_n-1].size());
-Info stairLoc = room[stair_n-1][x-1].getinfo();
-stair_r = stairLoc.r;
-stair_c = stairLoc.c;
-//Done with Stairs (add stair location checker in move)
-//Now make the potions.
-for (int i = 0; i < potionLimit; ++i) {                               //POTIONS
-int chamb = RandomNumber(5);    //which chamber
-int loc;
-Info locInfo;
-while (true){
-loc = RandomNumber(room[chamb-1].size());               //where in the chamber
-locInfo = room[chamb-1][loc-1].getInfo();
-if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
-break;
-}
-}
-Potion *pot = new Potion();
-Interactable *inter2 = pot;
-Info potloc = room[chamb-1][loc-1].getInfo();
-Info potInfo = {0,0,false,false,false,0,inter2};
-layout[potloc.r][potloc.c].change(potInfo);
-}
-for (int j = 0; j < goldLimit; ++j) {                                   //GOLD
-int chamb = RandomNumber(5);    //which chamber
-int gtype = RandomNumber(8);
-Info locInfo;
-Info gold;
-int gvalue;
-if (gtype <= 7) {
-while (true){
-int loc = RandomNumber(room[chamb-1].size());           //where in the chamber
-locInfo = room[chamb-1][loc-1].getInfo();
-if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
-break;
-}
-}
-if (gtype <= 5) {
-gvalue = 2;             //normal
-}
-else {
-gvalue = 1;             //small
-}
-gold = {0,0,false,false,false,false,0,nullptr};
-layout[locInfo.r][locInfo.c].change(gold);
-}
-else {
-Info dragInfo;
-while (true){
-loc = RandomNumber(room[chamb-1].size());               //where in the chamber
-locInfo = room[chamb-1][loc-1].getInfo();
-if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
-int drag = RandomNumber(8);
-int r = locInfo.r;
-int c = locInfo.c;
-if (drag == 1) {
---r; --c;
-}
-else if (drag == 2) --r;
-else if (drag ==3 ) {
---r; ++c;
-}
-else if (drag == 4) ++c;
-else if (drag == 5) {
-++r; ++c;
-}
-else if (drag == 6) ++r;
-else if (drag == 7) {
-++r; --c;
-}
-else --c;
-dragInfo = layout[locInfo.r+r][locInfo.c+c].getInfo();
-if (dragInfo.I == nullptr) {
-break;
-}
-}
-}
-gvalue = 6;     //dragon
-Dragon *dr = new Dragon();
-Interactable *inter3 = dr;
-gold = {0,0,false,false,false,false,6,inter3};
-dragInfo.coin = 6;
-dragInfo.I = inter3;
-layout[dragInfo.r][dragInfo.c].change(dragInfo);
-}
-layout[locInfo.r][locInfo.c].change(gold);
-}
-for (int j = 0; j < EnemiesLimit; ++j) {                        //ENEMIES
-int chamb = RandomNumber(5);    //which chamber
-int loc;
-Info locInfo;
-while (true){
-loc = RandomNumber(room[chamb-1].size());               //where in the chamber
-locInfo = room[chamb-1][loc-1].getInfo();
-if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
-break;
-}
-}
-etype = RandomNumber(18);
-Info enemy;
-if (etype <= 4) {                                       //human
-Human *h = new Human();
-Interactable *inter = h;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-else if (etype <= 7) {          //dwarf
-Dwarf *d = new Dwarf();
-Interactable *inter = d;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-else if (etype <= 12) {         //Halfling
-Halfling *ha = new Halfling();
-Interactable *inter = ha;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-else if (etype <= 14) {         //Elf
-Elf *e = new Elf();
-Interactable *inter = e;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-else if (etype <= 16) {         //Orc
-Orc *o = new Orc();
-Interactable *inter = o;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-else {                                                                          //Merchant
-Merchant *m = new Merchant();
-Interactable *inter = m;
-enemy = {0,0,false,false,false,locInfo.coin,inter};
-}
-layout[chamb-1][loc-1].change(enemy);
-}
-}*/
 
-void mapLayout::move(string s) {
-	PC_r = 5;
-	PC_c = 5;
+void mapLayout::placeInteractables(string charType) {
+
+	//We first generate the PC
+	int char_n = RandomNumber(5);
+	int x = RandomNumber(room[char_n - 1].size());
+	Info charloc = room[char_n - 1][x - 1].getInfo();
+	PC_r = charloc.r;
+	PC_c = charloc.c;
+
+	//make the character
+	Interactable *inter;
+	if (charType == "s") {
+		Shade *s = new Shade();
+		inter = s;
+	}
+	else if (charType == "d") {
+		Drow *d = new Drow();
+		inter = d;
+	}
+	else if (charType == "v") {
+		Vampire *v = new Vampire();
+		inter = v;
+	}
+	else if (charType == "g") {
+		Goblin *g = new Goblin();
+		inter = g;
+	}
+	else {
+		Troll *t = new Troll();
+		inter = t;
+	}
+	Info playerInfo = { 0,0,false,false,false,0,inter };//Create struct for PC;
+	layout[charloc.r][charloc.c].change(playerInfo);
+	//DONE WITH PC
+	//Now stairs
+	int stair_n = RandomNumber(5);
+	while (stair_n == char_n) {
+		stair_n = RandomNumber(5);
+	}
+	x = RandomNumber(room[stair_n - 1].size());
+	Info stairLoc = room[stair_n - 1][x - 1].getInfo();
+	stair_r = stairLoc.r;
+	stair_c = stairLoc.c;
+	Info stairInfo = { 0,0,true,true,true,0,nullptr };
+	layout[stair_r][stair_c].change(stairInfo);
+	//Done with Stairs (add stair location checker in move)
+	//Now make the potions.
+	int chamb;
+	int loc;
+	int row;
+	int column;
+	for (int i = 0; i < potionLimit; ++i) {                               //POTIONS
+		while (true) {
+
+			chamb = RandomNumber(5);    //which chamb
+			loc = RandomNumber(room[chamb - 1].size());
+			Info locInfo = room[chamb - 1][loc - 1].getInfo();
+			row = locInfo.r;
+			column = locInfo.c;
+			if (((row != stair_r) || (column != stair_c)) && (locInfo.I == nullptr)) {
+				break;
+			}
+		}
+		Potion *pot = new Potion();
+		Interactable *inter2 = pot;
+		Info potloc = layout[row][column].getInfo();
+		Info potInfo = { 0,0,false,false,false,0,inter2 };
+		layout[potloc.r][potloc.c].change(potInfo);
+	}
+	for (int j = 0; j < goldLimit; ++j) {
+		int gtype = RandomNumber(8);
+		int gvalue;
+		//      int or, oc;
+		if (gtype <= 7) {
+			//int gr, gc;
+			while (true) {
+				chamb = RandomNumber(5);    //which chamber
+				loc = RandomNumber(room[chamb - 1].size());           //where in the chamber
+				Info locInfo = room[chamb - 1][loc - 1].getInfo();
+				row = locInfo.r;
+				column = locInfo.c;
+				if (((row != stair_r) || (column != stair_c)) && (locInfo.I == nullptr)) {
+					break;
+				}
+			}
+			if (gtype <= 5) gvalue = 2; //normal
+			else gvalue = 1;             //small
+			Info gold = { 0,0,false,false,true,gvalue,nullptr };
+			layout[row][column].change(gold);
+		}
+	}
+		/*  else {
+		while (true) {
+		int loc = RandomNumber(room[chamb - 1].size());               //where in the chamber
+		Info locInfo = room[chamb - 1][loc - 1].getInfo();
+		if (!(locInfo.r == stair_r && locInfo.c == stair_c) && locInfo.I == nullptr) {
+		int drag = RandomNumber(8);
+		or = locInfo.r;
+		oc = locInfo.c;
+		r = locInfo.r;
+		c = locInfo.c;
+		if (drag == 1) {
+		--r; --c;
+		}
+		else if (drag == 2) --r;
+		else if (drag == 3) {
+		--r; ++c;
+		}
+		else if (drag == 4) ++c;
+		else if (drag == 5) {
+		++r; ++c;
+		}
+		else if (drag == 6) ++r;
+		else if (drag == 7) {
+		++r; --c;
+		}
+		else --c;
+		Info dragInfo = layout[r][c].getInfo();
+		if (dragInfo.I == nullptr) {
+		break;
+		}
+		}
+		}
+		Info dragInfo = layout[r][c].getInfo();
+		gvalue = 6;     //dragon
+		Dragon *dr = new Dragon();
+		Interactable *inter3 = dr;
+		Info gold = { 0,0,false,false,false,6,inter3 };
+		dragInfo.coin = 6;
+		dragInfo.I = inter3;
+		layout[dragInfo.r][dragInfo.c].change(dragInfo);
+		layout[or ][oc].change(gold);
+		}
+		} */
+	for (int j = 0; j < enemyLimit; ++j) {                        //ENEMIES
+		int coinValue;
+		while (true) {
+		chamb = RandomNumber(5);    //which chamber
+		loc = RandomNumber(room[chamb - 1].size());               //where in the chamber
+		Info locInfo = room[chamb - 1][loc - 1].getInfo();
+		coinValue = locInfo.coin;
+		row = locInfo.r;
+		column = locInfo.c;
+		if (((row != stair_r) || (column != stair_c)) && (locInfo.I == nullptr) && (locInfo.coin == 0)) {
+		break;
+		}
+		}
+		int etype = RandomNumber(18);
+		if (etype <= 4) {                                       //human
+		Human *h = new Human();
+		Interactable *inter = h;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+		else if (etype <= 7) {          //dwarf
+		Dwarf *d = new Dwarf();
+		Interactable *inter = d;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+		else if (etype <= 12) {         //Halfling
+		Halfling *ha = new Halfling();
+		Interactable *inter = ha;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+		else if (etype <= 14) {         //Elf
+		Elf *e = new Elf();
+		Interactable *inter = e;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+		else if (etype <= 16) {         //Orc
+		Orc *o = new Orc();
+		Interactable *inter = o;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+		else {                                                                          //Merchant
+		Merchant *m = new Merchant();
+		Interactable *inter = m;
+		Info enemy = { 0,0,false,false,false,coinValue,inter };
+		layout[row][column].change(enemy);
+		}
+
+		}
+	}
+
+	//mark end comment
+
+	void mapLayout::move(string s) {
+		//PC_r = 5;
+		//PC_c = 5;
+		int r = 0;
+		int c = 0;
+		if (s == "no") --r;
+		else if (s == "so") ++r;
+		else if (s == "we") --c;
+		else if (s == "ea") ++c;
+		else if (s == "ne") {
+			++c; --r;
+		}
+		else if (s == "se") {
+			++c; ++r;
+		}
+		else if (s == "sw") {
+			--c; ++r;
+		}
+		else if (s == "nw") {
+			--c; --r;
+		}
+		if (PC_r + r == stair_r && PC_c + c == stair_c) {
+			cout << "Game won" << endl;
+			gameFinished = !gameFinished;
+		}
+
+		Info currTile = layout[PC_r][PC_c].getInfo();
+		Info nextTile = layout[PC_r + r][PC_c + c].getInfo();
+		PC_gold += nextTile.coin;
+		nextTile.coin = 0;
+		if (nextTile.isStep) {
+			layout[PC_r + r][PC_c + c].change(currTile);
+			layout[PC_r][PC_c].change(nextTile);
+			PC_r = PC_r + r;
+			PC_c = PC_c + c;
+		}
+		// else throw ("DONT GO HERE, Are ye blind?")
+	}
+	/*
+	void moveEnemies() {
+	vector<Tile> enemies;
+	for(int i = 0; i < 25; ++i) {
+	for(int j = 0; j < 79; ++j) {
+	Info currtile = layout[i][j].getInfo();
+	if (curtile.I != nullptr) {
+	if (curtile.I.movement()) enemies.push_back(layout[i][j]);
+	}
+	}
+	}
+	int vecSize = enemies.size();
+	for(int i = 0; i < vecSize; ++i) {
+	int move = RandomNumber(8);
+	Info currTile = enemies[i].getInfo();
+	int r = currTile.r;
+	int c = currTile.c;
+	if (move == 1) {
+	--r; --c;
+	}
+	else if (move == 2) --r;
+	else if (move ==3 ) {
+	--r; ++c;
+	}
+	else if (move == 4) ++c;
+	else if (move == 5) {
+	++r; ++c;
+	}
+	else if (move == 6) ++r;
+	else if (move == 7) {
+	++r; --c;
+	}
+	else --c;
+	Info nextTile = layout[r][c].getInfo();
+	if (nextTile.isStep && !nextTile.isWall && !nextTile.passage) {
+	layout[r][c].change(currTile);
+	layout[currTile.r][currTile.c].change(nextTile);
+	}
+	}
+	}
+	void mapLayout::attack (string s) {
+	int x = 0;
+	int y = 0;
+	if (s == "no") --r;
+	if (s == "so") ++r;
+	if (s == "we") --c;
+	if (s == "ea") ++c;
+	if (s == "ne") {
+	++c; --r;
+	}
+	if (s == "se") {
+	++c; ++r;
+	}
+	if (s == "sw") {
+	--c; ++r;
+	}
+	if (s == "nw") {
+	--c; --r;
+	}
+	Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
+	Info playerTile = layout[PC_r][PC_r].getInfo();
+	playerTile.I->strike(enemyTile.I); //add what happens if a nullptr is passed to these functions
+	//Add what happens when the enemy is tied. return a boolean.
+	}
+*/
+void mapLayout::take (string s) {
 	int r = 0;
 	int c = 0;
 	if (s == "no") --r;
@@ -385,114 +498,20 @@ void mapLayout::move(string s) {
 	if (s == "we") --c;
 	if (s == "ea") ++c;
 	if (s == "ne") {
-		++c; --r;
+	++c; --r;
 	}
 	if (s == "se") {
-		++c; ++r;
+	++c; ++r;
 	}
 	if (s == "sw") {
-		--c; ++r;
+	--c; ++r;
 	}
 	if (s == "nw") {
-		--c; --r;
+	--c; --r;
 	}
-	Info currTile = layout[PC_r][PC_c].getInfo();
-	Info nextTile = layout[PC_r + r][PC_c + c].getInfo();
-	PC_gold += nextTile.coin;
-	nextTile.coin = 0;
-	if (nextTile.isStep) {
-		layout[PC_r + r][PC_c + c].change(currTile);
-		layout[PC_r][PC_c].change(nextTile);
-		PC_r = PC_r + r;
-		PC_c = PC_c + c;
+	Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
+	Info playerTile = layout[PC_r][PC_c].getInfo();
+	Potion *p = dynamic_cast<Potion*>(potionTile.I);
+	Player *pc = dynamic_cast<Player*>(playerTile.I);
+	playerTile.I->takePotion(p, pc); //add what happens if a null ptr is passed to these functions.
 	}
-	// else throw ("DONT GO HERE, Are ye blind?")
-}
-/*
-void moveEnemies() {
-vector<Tile> enemies;
-for(int i = 0; i < 25; ++i) {
-for(int j = 0; j < 79; ++j) {
-Info currtile = layout[i][j].getInfo();
-if (curtile.I != nullptr) {
-if (curtile.I.movement()) enemies.push_back(layout[i][j]);
-}
-}
-}
-int vecSize = enemies.size();
-for(int i = 0; i < vecSize; ++i) {
-int move = RandomNumber(8);
-Info currTile = enemies[i].getInfo();
-int r = currTile.r;
-int c = currTile.c;
-if (move == 1) {
---r; --c;
-}
-else if (move == 2) --r;
-else if (move ==3 ) {
---r; ++c;
-}
-else if (move == 4) ++c;
-else if (move == 5) {
-++r; ++c;
-}
-else if (move == 6) ++r;
-else if (move == 7) {
-++r; --c;
-}
-else --c;
-Info nextTile = layout[r][c].getInfo();
-if (nextTile.isStep && !nextTile.isWall && !nextTile.passage) {
-layout[r][c].change(currTile);
-layout[currTile.r][currTile.c].change(nextTile);
-}
-}
-}
-void mapLayout::attack (string s) {
-int x = 0;
-int y = 0;
-if (s == "no") --r;
-if (s == "so") ++r;
-if (s == "we") --c;
-if (s == "ea") ++c;
-if (s == "ne") {
-++c; --r;
-}
-if (s == "se") {
-++c; ++r;
-}
-if (s == "sw") {
---c; ++r;
-}
-if (s == "nw") {
---c; --r;
-}
-Info enemyTile = layout[PC_r+r][PC_c+c].getInfo();
-Info playerTile = layout[PC_r][PC_r].getInfo();
-playerTile.I->strike(enemyTile.I); //add what happens if a nullptr is passed to these functions
-//Add what happens when the enemy is tied. return a boolean.
-}
-
-void mapLayout::take (string s) {
-int x = 0;
-int y = 0;
-if (s == "no") --r;
-if (s == "so") ++r;
-if (s == "we") --c;
-if (s == "ea") ++c;
-if (s == "ne") {
-++c; --r;
-}
-if (s == "se") {
-++c; ++r;
-}
-if (s == "sw") {
---c; ++r;
-}
-if (s == "nw") {
---c; --r;
-}
-Info potionTile = layout[PC_r+r][PC_c+c].getInfo();
-Info playerTile = layout[PC_r][PC_c].getInfo();
-playerTile.I->takePotion(potionTile.I); //add what happens if a null ptr is passed to these functions.
-}*/

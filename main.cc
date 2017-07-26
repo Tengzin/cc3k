@@ -39,39 +39,33 @@ mapLayout l;
 int level = 1;
 bool enemyMove = true;      // if user types "r" it resets everything. I did continue (ie start over the while loop)
 							// if might be easier to put these variable in the while so they get reset
-
+bool gameFinished = false;
 
 int main() {
 
-	bool gameFinished = false;
+	
 	while (!gameFinished) {
-		cout << l << endl;
 		// constructing the PC
 		cout << "Please choose your character, one of s, d, v, g, or t" << endl;
 		string s;
 		cin >> s;
-		//mapLayout l;
-		//cout << l;
-		cout << " here" << endl;
 		if (s == "q") break;
 		else if (s == "s" || s == "d" || s == "v" || s == "g" || s == "t") {
-			//l.placeInteractables(s);
+			l.placeInteractables(s);
 		}
 		else continue;
-
-		// have to add all the enemies, potions, stairs, coins, and PC here
 		cout << l << "Player character has spawned." << endl; // prints board and action at bottom of board
 
 
 															  // movement, combat, taking potions
 		string dir;
-		while (cin >> s) {
+		while (cin >> s && !gameFinished) {
 			if (s == "q" || s == "r") break;
 			else if (s == "no" || s == "so" || s == "ea" || s == "we" || s == "ne" || s == "nw" || s == "se" || s == "sw") l.move(s);
 			else if (s == "f") enemyMove = !enemyMove;
 			else if (s == "u") {
 				cin >> dir;
-				//l.take(dir);
+				l.take(dir);
 				if (dir == "q" || dir == "r") break;
 				// take potion in dir direction
 			}
@@ -79,6 +73,7 @@ int main() {
 				cin >> dir;
 				// l.attack(dir);
 				if (dir == "q" || dir == "r") break;
+
 				// attack enemy in dir direction
 			}
 			cout << l;

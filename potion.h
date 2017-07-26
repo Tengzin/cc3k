@@ -17,7 +17,7 @@ class Potion: public Interactable {
   string pot_type;
 public:
   char whatType(Interactable *i) override;
-  void notify(Player *pc);
+  void notify(Player *pc) override;
   string getPotType();
   void takePotion(Potion *p, Player *pc) override {};
 };

@@ -10,7 +10,7 @@ class Tile : public Subject, public Observer {  //+this inherits from Subject
 	bool isWall;
 	bool isStep;
 	int coin = 0;
-	//  Interactable *inter = nullptr;
+	Interactable *inter = nullptr;
 
 public:
 	Info getInfo() const override;
@@ -24,3 +24,4 @@ public:
 
 
 #endif
+#pragma once

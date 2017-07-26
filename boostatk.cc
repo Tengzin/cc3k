@@ -5,7 +5,7 @@ using namespace std;
 
 BoostAtk::BoostAtk(int atk_gain, Player *pc):
 PCDecorator{pc}, atk_gain{atk_gain} {
-  cout << "You gained " << atk_gain << " ATK points." << endl;  
+  cout << "You gained " << atk_gain << " ATK points." << endl;
 }
 int BoostAtk::getAtk() {
   return pc->getAtk() + atk_gain;

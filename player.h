@@ -10,7 +10,8 @@
 #include "character.h"
 #include "interactable.h"
 #include "enemy.h"
-
+#include <iostream>
+using namespace std;
 class Potion;
 
 class Player: public Character {
@@ -35,6 +36,7 @@ public:
   char whatType(Interactable *i) override;
 
   void resetStats(); //after a level is cleared, reset atk and def
+  friend std::ostream &operator<<(std::ostream &out, const Player &pc);
 protected:
   int gold;
   virtual void heal(int hp_gain);
