@@ -2,7 +2,7 @@
 A simple implementation of a classic dungeon-crawling game.
 
 ### Usage
-Simply compile and run the executable created.
+Simply compile and run the executable created. Instructions will be given in-game.
 ```
 make
 ```
